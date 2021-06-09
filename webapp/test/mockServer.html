@@ -1,0 +1,36 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta charset="utf-8">
+		<title>MockServerTutorial</title>
+		<script id="sap-ui-bootstrap"
+			src="../resources/sap-ui-core.js"
+			data-sap-ui-libs="sap.m"
+			data-sap-ui-theme="sap_bluecrystal"
+			data-sap-ui-compatVersion="edge"
+			data-sap-ui-resourceroots='{"meldeappui5": "../"}'>
+		</script>
+		<link rel="stylesheet" type="text/css" href="../css/style.css">
+		<script>
+			sap.ui.getCore().attachInit(function() {
+				sap.ui.require([
+					"meldeappui5/localService/mockserver",
+					"meldeappui5/resources/sap/m/Shell",
+					"meldeappui5/resources/sap/ui/core/ComponentContainer"
+				], function (mockserver, Shell, ComponentContainer) {
+					mockserver.init();
+					new Shell({
+						app: new sap.ui.core.ComponentContainer({
+							height : "100%",
+							name : "Melde App Test"
+						})
+					}).placeAt("content");
+				});
+			});
+		</script>
+	</head>
+	<body class="sapUiBody" id="content">
+	<div data-sap-ui-component data-name="meldeappui5" data-id="container" data-settings='{"id" : "meldeappui5"}'></div>
+	</body>
+</html>

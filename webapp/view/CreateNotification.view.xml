@@ -1,0 +1,270 @@
+<mvc:View xmlns="sap.m"
+          xmlns:mvc="sap.ui.core.mvc"
+          xmlns:f="sap.f"
+          xmlns:card="sap.f.cards"
+          xmlns:core="sap.ui.core"
+          xmlns:l="sap.ui.layout"
+          controllerName="meldeappui5.controller.CreateNotification"
+          displayBlock="true">
+    <Page id="requestPage" showHeader="false">
+        <content>
+            <l:Grid width="98%">
+                <VBox class="sapUiSmallMarginEnd" justifyContent="SpaceBetween" width="98%">
+                    <layoutData>
+                        <l:GridData span="XL12 L12 M8 S6"/>
+                    </layoutData>
+                    <HBox class="sapUiSmallMarginEnd" width="98%">
+                        <!--<Image src="./icons/MFM_Icon.jpg" width="200px" height="100px" id="image2" class="sapUiSmallMargin"/>-->
+                        <Image src="./icons/Meldeapp_Icon.png" width="100px" height="100px" id="image2"
+                               class="sapUiSmallMargin"/>
+                        <l:VerticalLayout>
+                            <FormattedText
+                                    htmlText="&lt;strong>MFM - Mobile Facility Management / Gebäudemanagement&lt;/strong>"
+                                    class="sapUiLargeMarginTop"/>
+                            <Text xmlns="sap.m"
+                                  text="Haben Sie ein Anliegen zu Leistungen im Gebäude? Dann sprechen Sie uns gerne mit Hilfe dieses Meldeformulars an. Die Meldung wird an das Gebäudemanagement übermittelt, und Sie werden über den Fortschritt informiert. Wir helfen Ihnen bei Anliegen von einem defekten Stuhl über eine Mangelleistung mit der Reinigung bis hin zu einem Umzug gerne weiter.  "
+                                  class="sapUiTinyMarginTop"/>
+                        </l:VerticalLayout>
+                    </HBox>
+                    <VBox class="sapUiSmallMarginEnd" width="98%">
+                        <l:VerticalLayout>
+                            <Text xmlns="sap.m" wrapping="true" class="sapUiTinyMarginTop"
+                                  text="Gebäudemanagement der RWE Power AG. "/>
+                            <Text xmlns="sap.m"
+                                  text="Wir sind für Sie im Rheinischen Revier einschließlich der Zentrale Köln für alle nicht produktionsnotwendigen Gebäude tätig. Das Gebäudemanagement umfasst alle technischen, kaufmännischen und infrastrukturellen Maßnahmen zur effizienten und wirtschaftlichen Nutzung von Gebäuden und deren Anlagen über den gesamten Lebenszyklus. Wir erstellen Konzepte für die Nutzung bei Arbeitsplatz- und Büroflächengestaltung, unterstützen bei Umzügen und beraten Sie in Fragen."
+                                  class="sapUiTinyMarginTop"/>
+                        </l:VerticalLayout>
+                    </VBox>
+                </VBox>
+            </l:Grid>
+            <l:Grid>
+                <HBox>
+                    <layoutData>
+                        <l:GridData span="XL12 L12 M8 S6"/>
+                    </layoutData>
+                    <VBox direction="Column">
+                        <layoutData>
+                            <l:GridData span="XL6 L6 M4 S3"/>
+                        </layoutData>
+                        <f:Card>
+                            <f:header>
+                                <card:Header title="Kontaktdaten" iconSrc="sap-icon://business-card"/>
+                            </f:header>
+                            <f:content>
+                                <VBox justifyContent="SpaceBetween" class="sapUiSmallMargin" height="300px">
+                                    <HBox justifyContent="SpaceBetween">
+                                        <Label text="Vorname:" class="sapUiMediumMarginTop"/>
+                                        <Input width="350px" value="{loginModel>/firstname}" id="inFirstName"
+                                               class="sapUiSmallMargin" enabled="{appModel>/robotics}"></Input>
+                                    </HBox>
+                                    <HBox justifyContent="SpaceBetween">
+                                        <Label text="Name:" class="sapUiMediumMarginTop"/>
+                                        <Input width="350px" value="{loginModel>/lastname}" id="inLastName"
+                                               class="sapUiSmallMargin" enabled="{appModel>/robotics}"/>
+                                    </HBox>
+                                    <HBox justifyContent="SpaceBetween">
+                                        <Label text="E-Mail:" textDirection="LTR" class="sapUiMediumMarginTop"/>
+                                        <Input width="350px" value="{loginModel>/email}" id="inEmail"
+                                               class="sapUiSmallMargin" enabled="{appModel>/robotics}"/>
+                                    </HBox>
+                                    <HBox justifyContent="SpaceBetween">
+                                        <Label text="Telefonnummer:" textDirection="LTR"
+                                               class="sapUiMediumMarginTop"/>
+                                        <Input width="350px" value="{loginModel>/telephone}" id="inTelephone"
+                                               class="sapUiSmallMargin" enabled="true" type="Number"
+                                               tooltip="Bitte geben Sie hier Ihre Telefonnummer an."/>
+                                    </HBox>
+                                </VBox>
+                            </f:content>
+                        </f:Card>
+                    </VBox>
+                    <VBox direction="Column" class="sapUiSmallMarginBegin">
+                        <layoutData>
+                            <l:GridData span="XL8 L8 M4 S3"/>
+                        </layoutData>
+                        <f:Card>
+                            <f:header>
+                                <card:Header title="Wichtige Hinweise" iconSrc="sap-icon://message-warning"/>
+                            </f:header>
+                            <f:content>
+                                <VBox class="sapUiSmallMargin" height="300px">
+                                    <HBox class="sapUiLargeMarginBegin">
+                                        <core:HTML
+                                                content='&lt;div class=&quot;content&quot;&gt;&lt;div&gt; Die folgenden Dienstleistungen sind nicht Bestandteil unseres Leistungsumfangs. &lt;ul&gt; &lt;li&gt;Für IT-Dienstleistungsbedarfe, IT Hardwarebeschaffung und IT-Störungen nutzen Sie bitte das SNOW-System: &lt;a target=&quot;_blank&quot; href=&quot;https://itportal.rwe.com/sp&quot;&gt;Web_Link.&lt;/a&gt; &lt;/li&gt; &lt;li&gt; Bei Fragen zu Telekommunikationsdienstleistungen wenden Sie sich bitte an die lokale Telefonabteilung.&lt;/li&gt;&lt;li&gt;Besprechungsräume und die zugehörige Medienunterstützung buchen Sie bitte über das &lt;a target=&quot;_blank&quot; href=&quot;https://raumbuchungssystem.rwe.com/&quot;&gt;Raumbuchungssystem Gingco. &lt;/a&gt;&lt;/li&gt; &lt;/ul&gt; &lt;/div&gt;&lt;/div&gt;&lt;/div&gt;'></core:HTML>
+                                    </HBox>
+                                    <HBox>
+                                        <Panel visible="false" expandable="true" expanded="true"
+                                               headerText="weitere Informationen" class="sapUiResponsiveMargin">
+                                            <content>
+                                                <core:HTML
+                                                        content='&lt;div class=&quot;content&quot;&gt;&lt;div&gt; &lt;ul&gt; &lt;li&gt; &lt;a target=&quot;_blank&quot; href=&quot;https://raumbuchungssystem.rwe.com/&quot;&gt;Gingco-Raumbuchungssystem&lt;/a&gt; &lt;/li&gt; &lt;li&gt; &lt;a target=&quot;_blank&quot; href=&quot;https://teamwork.rwe.com/de-de/team-info/services/im-buero/bueroservices/&quot;&gt;Infoseite des Büroservices&lt;/a&gt; &lt;/li&gt; &lt;li&gt; &lt;a target=&quot;_blank&quot; href=&quot;https://teamwork.rwe.com/de-de/team-info/services/administration/veranstaltungen-schloss-paffendorf/&quot;&gt;Inofoseite von Schloss Paffendorf&lt;/a&gt; &lt;/li&gt; &lt;li&gt; &lt;a target=&quot;_blank&quot; href=&quot;https://teamwork.rwe.com/-/media/files/team-info/services/im-buero/gebaeude-management/aggregierte-gebudeliste-phi---intranet.xlsx&quot;&gt;Liste mit allen Gebäuden und zugehörigen Objektleitern&lt;/a&gt; &lt;/li&gt; &lt;li&gt; &lt;a target=&quot;_blank&quot; title=&quot; Ausnahme: In Köln sprechen Sie für den TK Service das Gebäudemanagement an! &quot; href=&quot;https://teamwork.rwe.com/-/media/files/team-info/services/im-buero/gebaeude-management/bedarfsanfrage-v2.xltm&quot;&gt;Formular zur Bedarfsmeldung(zB. für Platz-/Raumbedarf, Umzüge oder Büroumgestaltung) &lt;/a&gt; &lt;/li&gt; &lt;/ul&gt; &lt;/div&gt;&lt;/div&gt;&lt;/div&gt;'></core:HTML>
+                                            </content>
+                                        </Panel>
+                                    </HBox>
+                                </VBox>
+                            </f:content>
+                        </f:Card>
+                    </VBox>
+                </HBox>
+            </l:Grid>
+            <l:Grid>
+                <VBox direction="Column">
+                    <items>
+                        <Label width="100%" text="Kategorie:" textDirection="LTR" class="sapUiSmallMarginTop"/>
+                        <Select width="100%" id="selectCategory" xmlns:sap.ui.core="sap.ui.core"
+                                change="onSelectCategory" items="{dropdownModel>/categoryset}"
+                                tooltip="Bitte wählen Sie im Menüfeld Ihr zutreffendes Kategorie aus.">
+                            <core:Item key="{dropdownModel>category}" text="{dropdownModel>description}"/>
+                        </Select>
+                    </items>
+                    <layoutData>
+                        <l:GridData span="XL3 L4 M6 S6"/>
+                    </layoutData>
+                </VBox>
+                <VBox direction="Column">
+                    <items>
+                        <Label text="Straße / PLZ / Ort / Volltextsuche:" id="label0_copy3" textDirection="LTR"
+                               class="sapUiSmallMarginTop"/>
+                        <Input id="fullsearchInput" type="Text" placeholder="suchen und ein Gebäude auswählen"
+                               showSuggestion="true"
+                               liveChange=".onLiveBuildingChangeInput" valueLiveUpdate="true"
+                               tooltip="Bitte geben Sie hier eine Straße oder PLZ oder Ort oder an."
+                               showTableSuggestionValueHelp="false"
+                               suggestionRows="{dropdownModel>/buildingset}"
+                               enableSuggestionsHighlighting="true" autocomplete="false"
+                               suggestionItemSelected=".onSuggestionItemSelected">
+                            <suggestionColumns>
+                                <Column popinDisplay="Inline" demandPopin="true">
+                                    <Label text="Gebäude"/>
+                                </Column>
+                                <Column hAlign="Center" popinDisplay="Inline" demandPopin="true" width="20%">
+                                    <Label text="Gebis Nr."/>
+                                </Column>
+                                <Column hAlign="Center" popinDisplay="Inline" demandPopin="true"
+                                        width="0%"></Column>
+                                <Column hAlign="Center" popinDisplay="Inline" demandPopin="true"
+                                        width="0%"></Column>
+                                <!--</Column>-->
+                            </suggestionColumns>
+                            <suggestionRows>
+                                <ColumnListItem>
+                                    <cells>
+                                        <ObjectIdentifier title="{dropdownModel>buldingName}"
+                                                          text="{dropdownModel>street} {dropdownModel>houseNumber} {dropdownModel>postalCode} {dropdownModel>city}"/>
+                                        <Label id="selectedBuildingGebis" text="{dropdownModel>gebisNumber}"/>
+                                        <Label id="selectedBuildingKey" text="{dropdownModel>funcLocationId}"
+                                               visible="false"/>
+                                        <Label id="selectedBuildingName" text="{dropdownModel>buldingName}"
+                                               visible="false"/>
+                                    </cells>
+                                </ColumnListItem>
+                            </suggestionRows>
+                        </Input>
+                    </items>
+                    <layoutData>
+                        <l:GridData span="XL3 L4 M6 S6"/>
+                    </layoutData>
+                </VBox>
+            </l:Grid>
+            <l:Grid>
+                <VBox direction="Column">
+                    <layoutData>
+                        <f:GridContainerItemLayoutData columns="2"/>
+                    </layoutData>
+                    <items>
+                        <Label width="100%" text="Etage (optional):" id="Etage_Label" textDirection="LTR"
+                               class="sapUiSmallMarginTop"/>
+                        <Input liveChange="onLiveChangeInput" value="{notificationcreateModel>/floor}"
+                               width="100%" id="inputFloor"
+                               tooltip="Bitte geben Sie hier die betreffende Etage an."/>
+                    </items>
+                    <layoutData>
+                        <l:GridData span="XL3 L4 M6 S6"/>
+                    </layoutData>
+                </VBox>
+                <VBox direction="Column">
+                    <layoutData>
+                        <f:GridContainerItemLayoutData columns="2"/>
+                    </layoutData>
+                    <items>
+                        <Label width="100%" text="Raum/Raumnummer (optional):" id="Raum_Label"
+                               textDirection="LTR" class="sapUiSmallMarginTop"/>
+                        <Input width="100%" value="{notificationcreateModel>/room}"
+                               liveChange="onLiveChangeInput" id="Raum_Input"
+                               tooltip="Bitte geben Sie hier - falls möglich - eine genaue Örtlichkeit an."/>
+                    </items>
+                    <layoutData>
+                        <l:GridData span="XL3 L4 M6 S6"/>
+                    </layoutData>
+                </VBox>
+            </l:Grid>
+            <l:Grid>
+                <VBox direction="Column">
+                    <items>
+                        <Label text="Mein Anliegen:" id="overview_copy2" textDirection="LTR"
+                               class="sapUiSmallMarginTop"/>
+                        <TextArea value="{notificationcreateModel>/shortText}" rows="1" maxLength="40"
+                                  width="100%" showExceededText="true"
+                                  tooltip="Bitte geben Sie hier kurz Ihr konkretes Anliegen an."
+                                  liveChange="handleShortTextLiveChange" id="textAreaShorText"
+                                  valueLiveUpdate="true"/>
+                    </items>
+                    <layoutData>
+                        <l:GridData span="XL12 L12 M12 S12"/>
+                    </layoutData>
+                </VBox>
+                <VBox direction="Column">
+                    <items>
+                        <Label text="Beschreibung (optional):" id="descriptionLabel" textDirection="LTR"
+                               class="sapUiSmallMarginTop"/>
+                        <TextArea value="{notificationcreateModel>/longText}" rows="5" showExceededText="true"
+                                  maxLength="1000" width="100%"
+                                  tooltip="Bitte beschreiben Sie hier Ihr konkretes Anliegen etwas genauer."
+                                  liveChange="handleLongTextLiveChange" id="textAreaLongText"
+                                  valueLiveUpdate="true"/>
+                    </items>
+                    <layoutData>
+                        <l:GridData span="XL12 L12 M12 S12"/>
+                    </layoutData>
+                </VBox>
+            </l:Grid>
+            <l:Grid>
+                <l:dependents>
+                    <core:Fragment fragmentName="meldeappui5.view.fragment.BusyDialog" type="XML"/>
+                </l:dependents>
+                <VBox direction="Column">
+                    <items>
+                        <UploadCollection id="UploadCollection" maximumFilenameLength="55" maximumFileSize="10"
+                                          multiple="true" sameFilenameAllowed="true"
+                                          fileType="jpg,png" instantUpload="false" change="onChange"
+                                          noDataText="Foto hinzufügen ( optional / max 3)"
+                                          fileDeleted="onFileDeleted"
+                                          filenameLengthExceed="onFilenameLengthExceed"
+                                          fileSizeExceed="onFileSizeExceed" typeMissmatch="onTypeMissmatch"
+                                          noDataDescription="Dateien für Upload hierher ziehen oder Drucktaste &quot;Hinzufügen&quot; verwenden."
+                                          uploadComplete="onUploadComplete"
+                                          tooltip="Bitte fügen Sie - falls möglich - bis zu drei Fotos der Situation vor Ort bei."
+                                          beforeUploadStarts="onBeforeUploadStarts"/>
+                        <!--<Button text="Auswählen" press="onUploadImagePress"></Button>-->
+                        <CheckBox selected="{notificationcreateModel>/subscribe}"
+                                  text="Ich möchte über den weiteren Verlauf per Mail informiert werden">
+                            <layoutData>
+                                <l:GridData span="XL12 L12 M12 S12"/>
+                            </layoutData>
+                        </CheckBox>
+                        <Button text="Meldung erstellen" press="onCreateNotification"></Button>
+                    </items>
+                    <layoutData>
+                        <l:GridData span="XL12 L12 M12 S12"/>
+                    </layoutData>
+                </VBox>
+                <VBox direction="Column">
+                    <items></items>
+                    <layoutData>
+                        <l:GridData span="XL12 L12 M12 S12"/>
+                    </layoutData>
+                </VBox>
+            </l:Grid>
+        </content>
+    </Page>
+</mvc:View>
