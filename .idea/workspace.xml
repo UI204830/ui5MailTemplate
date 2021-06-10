@@ -132,8 +132,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="npm.test" />
         <item itemvalue="npm.start:meldeapp" />
+        <item itemvalue="npm.test" />
         <item itemvalue="npm.build:WebContent" />
         <item itemvalue="npm.build:ui5:exclude:debug" />
         <item itemvalue="JavaScript Debug.opaTests.qunit.html" />
