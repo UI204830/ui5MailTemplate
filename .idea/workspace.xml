@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="669afe59-bfc6-456b-8ed2-86af1bad91ca" name="Default Changelist" comment="initial commit">
+    <list default="true" id="669afe59-bfc6-456b-8ed2-86af1bad91ca" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -151,7 +151,7 @@
       <workItem from="1623150988175" duration="21072000" />
       <workItem from="1623233954320" duration="11901000" />
       <workItem from="1623311980301" duration="3637000" />
-      <workItem from="1623315720866" duration="2196000" />
+      <workItem from="1623315720866" duration="2513000" />
     </task>
     <task id="LOCAL-00001" summary="initial commit">
       <created>1623317442315</created>
@@ -160,7 +160,14 @@
       <option name="project" value="LOCAL" />
       <updated>1623317442315</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="added dist to .gitignore">
+      <created>1623318231294</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1623318231294</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -194,6 +201,7 @@
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
     <MESSAGE value="initial commit" />
-    <option name="LAST_COMMIT_MESSAGE" value="initial commit" />
+    <MESSAGE value="added dist to .gitignore" />
+    <option name="LAST_COMMIT_MESSAGE" value="added dist to .gitignore" />
   </component>
 </project>
