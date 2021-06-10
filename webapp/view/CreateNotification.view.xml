@@ -1,5 +1,5 @@
-<mvc:View xmlns="sap.m"
-          xmlns:mvc="sap.ui.core.mvc"
+<mvc:View xmlns:mvc="sap.ui.core.mvc"
+          xmlns="sap.m"
           xmlns:f="sap.f"
           xmlns:card="sap.f.cards"
           xmlns:core="sap.ui.core"
@@ -19,20 +19,19 @@
                                class="sapUiSmallMargin"/>
                         <l:VerticalLayout>
                             <FormattedText
-                                    htmlText="&lt;strong>MFM - Mobile Facility Management / Gebäudemanagement&lt;/strong>"
+                                    htmlText="&lt;strong>{i18n>txt.headline.mfm}&lt;/strong>"
                                     class="sapUiLargeMarginTop"/>
-                            <Text xmlns="sap.m"
-                                  text="Haben Sie ein Anliegen zu Leistungen im Gebäude? Dann sprechen Sie uns gerne mit Hilfe dieses Meldeformulars an. Die Meldung wird an das Gebäudemanagement übermittelt, und Sie werden über den Fortschritt informiert. Wir helfen Ihnen bei Anliegen von einem defekten Stuhl über eine Mangelleistung mit der Reinigung bis hin zu einem Umzug gerne weiter.  "
+                            <Text
+                                  text="{i18n>txt.header.part1}"
                                   class="sapUiTinyMarginTop"/>
                         </l:VerticalLayout>
                     </HBox>
                     <VBox class="sapUiSmallMarginEnd" width="98%">
                         <l:VerticalLayout>
-                            <Text xmlns="sap.m" wrapping="true" class="sapUiTinyMarginTop"
-                                  text="Gebäudemanagement der RWE Power AG. "/>
-                            <Text xmlns="sap.m"
-                                  text="Wir sind für Sie im Rheinischen Revier einschließlich der Zentrale Köln für alle nicht produktionsnotwendigen Gebäude tätig. Das Gebäudemanagement umfasst alle technischen, kaufmännischen und infrastrukturellen Maßnahmen zur effizienten und wirtschaftlichen Nutzung von Gebäuden und deren Anlagen über den gesamten Lebenszyklus. Wir erstellen Konzepte für die Nutzung bei Arbeitsplatz- und Büroflächengestaltung, unterstützen bei Umzügen und beraten Sie in Fragen."
-                                  class="sapUiTinyMarginTop"/>
+                            <Text wrapping="true" class="sapUiTinyMarginTop"
+                                  text="{i18n>txt.header.part2}"/>
+                            <Text
+                                  text="{i18n>txt.header.part3}" class="sapUiTinyMarginTop"/>
                         </l:VerticalLayout>
                     </VBox>
                 </VBox>
@@ -90,7 +89,7 @@
                                 <VBox class="sapUiSmallMargin" height="300px">
                                     <HBox class="sapUiLargeMarginBegin">
                                         <core:HTML
-                                                content='&lt;div class=&quot;content&quot;&gt;&lt;div&gt; Die folgenden Dienstleistungen sind nicht Bestandteil unseres Leistungsumfangs. &lt;ul&gt; &lt;li&gt;Für IT-Dienstleistungsbedarfe, IT Hardwarebeschaffung und IT-Störungen nutzen Sie bitte das SNOW-System: &lt;a target=&quot;_blank&quot; href=&quot;https://itportal.rwe.com/sp&quot;&gt;Web_Link.&lt;/a&gt; &lt;/li&gt; &lt;li&gt; Bei Fragen zu Telekommunikationsdienstleistungen wenden Sie sich bitte an die lokale Telefonabteilung.&lt;/li&gt;&lt;li&gt;Besprechungsräume und die zugehörige Medienunterstützung buchen Sie bitte über das &lt;a target=&quot;_blank&quot; href=&quot;https://raumbuchungssystem.rwe.com/&quot;&gt;Raumbuchungssystem Gingco. &lt;/a&gt;&lt;/li&gt; &lt;/ul&gt; &lt;/div&gt;&lt;/div&gt;&lt;/div&gt;'></core:HTML>
+                                                content='&lt;div class=&quot;content&quot;&gt;&lt;div&gt;{i18n>txt.hint.content.header}&lt;ul&gt; &lt;li&gt;{i18n>ul.content1} &lt;a target=&quot;_blank&quot; href=&quot;https://itportal.rwe.com/sp&quot;&gt;Web_Link.&lt;/a&gt; &lt;/li&gt; &lt;li&gt;{i18n>ul.content2}&lt;/li&gt;&lt;li&gt;{i18n>ul.content3} &lt;a target=&quot;_blank&quot; href=&quot;https://raumbuchungssystem.rwe.com/&quot;&gt;Raumbuchungssystem Gingco. &lt;/a&gt;&lt;/li&gt; &lt;/ul&gt; &lt;/div&gt;&lt;/div&gt;&lt;/div&gt;'></core:HTML>
                                     </HBox>
                                     <HBox>
                                         <Panel visible="false" expandable="true" expanded="true"

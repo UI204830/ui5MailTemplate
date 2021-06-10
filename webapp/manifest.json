@@ -3,47 +3,43 @@
   "sap.app": {
     "id": "meldeappui5",
     "type": "application",
-    "i18n": "i18n/i18n.properties",
     "applicationVersion": {
       "version": "1.0.0"
     },
     "title": "{{appTitle}}",
     "description": "{{appDescription}}",
-    "sourceTemplate": {
-      "id": "ui5template.basicSAPUI5ApplicationProject",
-      "version": "1.40.12"
-    },
+
     "dataSources": {
       "mainService": {
-        "uri": "/",
+        "uri": "./",
         "type": "OData",
         "settings": {
           "odataVersion": "2.0",
-          "localUri": "./localService/metadata.xml"
+          "localUri": "localService/metadata.xml"
         }
       },
       "loginService": {
-        "uri": "./model/LoginModel.json",
+        "uri": "model/LoginModel.json",
         "type": "JSON"
       },
       "appService": {
-        "uri": "./model/AppModel.json",
+        "uri": "model/AppModel.json",
         "type": "JSON"
       },
       "notificationcreateService": {
-        "uri": "./model/NotificationcreateModel.json",
+        "uri": "model/NotificationcreateModel.json",
         "type": "JSON"
       },
       "textsearchService": {
-        "uri": "./model/TextsearchModel.json",
+        "uri": "model/TextsearchModel.json",
         "type": "JSON"
       },
       "dropdownService": {
-        "uri": "./model/DropdownModel.json",
+        "uri": "model/DropdownModel.json",
         "type": "JSON"
       },
       "notificationDIRService": {
-        "uri": "./model/NotificationDIRModel.json",
+        "uri": "model/NotificationDIRModel.json",
         "type": "JSON"
       }
     }
@@ -53,14 +49,6 @@
       "desktop": true,
       "tablet": false,
       "phone": false
-    },
-    "icons": {
-      "icon": "",
-      "favIcon": "",
-      "phone": "",
-      "phone@2": "",
-      "tablet": "",
-      "tablet@2": ""
     },
     "technology": "UI5"
   },
@@ -89,7 +77,8 @@
       "i18n": {
         "type": "sap.ui.model.resource.ResourceModel",
         "settings": {
-          "bundleName": "meldeappui5.i18n.i18n"
+          "bundleName": "meldeappui5.i18n.i18n",
+          "preload": true
         }
       },
       "loginModel": {
