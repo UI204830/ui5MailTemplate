@@ -4,7 +4,21 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="669afe59-bfc6-456b-8ed2-86af1bad91ca" name="Default Changelist" comment="" />
+    <list default="true" id="669afe59-bfc6-456b-8ed2-86af1bad91ca" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/webapp/model/BuildingSetModel.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/webapp/util/Database.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/build-dist.js" beforeDir="false" afterPath="$PROJECT_DIR$/build/build-dist.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/copy-sources.js" beforeDir="false" afterPath="$PROJECT_DIR$/build/copy-sources.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ui5.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/ui5.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webapp/controller/CreateNotification.controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/webapp/controller/CreateNotification.controller.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webapp/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/webapp/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webapp/localService/mockserver.js" beforeDir="false" afterPath="$PROJECT_DIR$/webapp/localService/mockserver.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webapp/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/webapp/manifest.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webapp/model/AppModel.json" beforeDir="false" afterPath="$PROJECT_DIR$/webapp/model/AppModel.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webapp/model/LoginModel.json" beforeDir="false" afterPath="$PROJECT_DIR$/webapp/model/LoginModel.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webapp/view/CreateNotification.view.xml" beforeDir="false" afterPath="$PROJECT_DIR$/webapp/view/CreateNotification.view.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -26,7 +40,7 @@
     </excluded-from-favorite>
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="develop" />
+        <entry key="$PROJECT_DIR$" value="feature/initialPush" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -57,7 +71,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../app.meldeapp.ui5webcockpit" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/webapp/model" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="SDKs" />
     <property name="project.structure.proportion" value="0.0" />
@@ -68,6 +82,7 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Workspace\app.meldeapp.ui5web\webapp\model" />
       <recent name="C:\Workspace\app.meldeapp.ui5web\webapp\controller" />
       <recent name="C:\Workspace\app.meldeapp.ui5web\webapp\view" />
       <recent name="C:\Workspace\app.meldeapp.ui5web" />
@@ -132,10 +147,10 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="npm.start:meldeapp" />
-        <item itemvalue="npm.test" />
         <item itemvalue="npm.build:WebContent" />
         <item itemvalue="npm.build:ui5:exclude:debug" />
+        <item itemvalue="npm.start:meldeapp" />
+        <item itemvalue="npm.test" />
         <item itemvalue="JavaScript Debug.opaTests.qunit.html" />
       </list>
     </recent_temporary>
@@ -155,6 +170,9 @@
       <workItem from="1623233954320" duration="11901000" />
       <workItem from="1623311980301" duration="3637000" />
       <workItem from="1623315720866" duration="2513000" />
+      <workItem from="1623414841830" duration="2228000" />
+      <workItem from="1624271340160" duration="18017000" />
+      <workItem from="1624292606237" duration="40102000" />
     </task>
     <task id="LOCAL-00001" summary="initial commit">
       <created>1623317442315</created>
@@ -177,7 +195,21 @@
       <option name="project" value="LOCAL" />
       <updated>1623319557090</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="added dist to .gitignore">
+      <created>1623319826996</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1623319826996</updated>
+    </task>
+    <task id="LOCAL-00005" summary="added dist to .gitignore">
+      <created>1623319999372</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1623319999372</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -213,5 +245,16 @@
     <MESSAGE value="initial commit" />
     <MESSAGE value="added dist to .gitignore" />
     <option name="LAST_COMMIT_MESSAGE" value="added dist to .gitignore" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/webapp/controller/CreateNotification.controller.js</url>
+          <line>50</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

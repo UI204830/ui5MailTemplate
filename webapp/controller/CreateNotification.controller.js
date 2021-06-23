@@ -1,26 +1,26 @@
 /* global _:true */
 sap.ui.define([
     "meldeappui5/controller/BaseController",
+    "sap/base/Log",
     "sap/m/library",
     "sap/ui/model/json/JSONModel",
     "sap/ui/model/odata/v2/ODataModel",
     "sap/m/MessageToast",
     "sap/ui/core/Fragment",
     "sap/ui/core/syncStyleClass",
-    "meldeappui5/libs/underscore",
     "meldeappui5/libs/loadash",
     "sap/m/UploadCollectionParameter",
     "sap/m/MessageBox"
 
 ], function (
     BaseController,
+    Log,
     mobileLibrary,
     JSONModel,
     ODataModel,
     MessageToast,
     Fragment,
     syncStyleClass,
-    Underscore,
     Loadash,
     UploadCollectionParameter,
     MessageBox) {
@@ -31,8 +31,9 @@ sap.ui.define([
 
     return BaseController.extend("meldeappui5.controller.CreateNotification", {
 
+        _bSelectedFromSuggestionList: false,
+
         onInit: function () {
-            //if	(window.navigator.userAgent.includes("Chrome") || window.navigator.userAgent.includes("Edge")){
             this._checkForRobotics();
             this.readUserDataFromPortal();
             var oDialog = this.getView().byId("BusyDialog");
@@ -43,20 +44,18 @@ sap.ui.define([
             // this.getView().setModel(oModel);
             // this.getView().setModel(oModel2);
             //	this.getOwnerComponent().getModel("dropdownModel").setSizeLimit(500);
-            var appModel = this.getOwnerComponent().getModel("appModel");
+
+            var appModel = this.getModel("appModel");
             var oOrderModel, oDataUrl;
             var that = this;
             var complete_url = window.location.href;
-            if (complete_url.includes("gatecons")) {
-                oDataUrl = appModel.getProperty("/serverUrlMQ2");
-            } else if (complete_url.includes("gatedev")) {
-                oDataUrl = appModel.getProperty("/serverUrlMQ2");
+
+            if (complete_url.includes("portal.gate.rwe.com")) {
+                oDataUrl = appModel.getProperty("/serverUrlMP2");
             } else if (complete_url.includes("gateqa")) {
                 oDataUrl = appModel.getProperty("/serverUrlMQ2");
-            } else if (complete_url.includes("webide")) {
-                oDataUrl = appModel.getProperty("/serverUrlMQ2");
             } else {
-                oDataUrl = appModel.getProperty("/serverUrlMP2");
+                oDataUrl = appModel.getProperty("/serverUrlMK2");
             }
 
             oOrderModel = new ODataModel(oDataUrl, {
@@ -65,16 +64,17 @@ sap.ui.define([
                 DefaultBindingMode: "TwoWay"
             });
 
-            this.getOwnerComponent().setModel(oOrderModel, "order");
+            this.setModel(oOrderModel, "order");
 
             oOrderModel.read("/BuildingSet", {
                 success: function (data) {
-                    // resolve(data);
-                    that.getOwnerComponent().getModel("dropdownModel").setProperty("/buildingset", data.results);
-                    that.createTextsearchModel(data);
-                    //that.setAllBuildingsToSearchResults();
-                },
+                    const model = new JSONModel(data.results);
+                    model.setSizeLimit(500);
+                    this.setModel(model, "buildingSetModel");
+                    this.createTextsearchModel(data);
+                }.bind(this),
                 error: function (error) {
+                    Log.error(error);
                 }
             });
 
@@ -105,11 +105,6 @@ sap.ui.define([
                 error: function (error) {
                 }
             });
-            //} else {
-            //	MessageBox.information("Die Anwendung läuft nur unter Chrome oder Edge Browser!");
-            //	window.open("https://teamwork.rwe.com/", "_self");
-            //}
-
         },
 
         _checkForRobotics: function () {
@@ -136,19 +131,19 @@ sap.ui.define([
         },
 
         readUserDataFromPortal: function () {
-            var loginModel = this.getOwnerComponent().getModel("loginModel");
-            var complete_url = window.location.href;
-            var url = "";
+            const loginModel = this.getOwnerComponent().getModel("loginModel");
+            const complete_url = window.location.href;
+            let url = "";
             if (complete_url.includes("gatecons")) {
-                var url = this.getOwnerComponent().getModel("appModel").getProperty("/pc7Url");
-            } else if (complete_url.includes("gatedev")) {
-                var url = this.getOwnerComponent().getModel("appModel").getProperty("/pd7Url");
+                url = this.getOwnerComponent().getModel("appModel").getProperty("/pc7Url");
+            } else if (complete_url.includes("portal.gate.rwe.com")) {
+                url = this.getOwnerComponent().getModel("appModel").getProperty("/pp7Url");
             } else if (complete_url.includes("gateqa")) {
-                var url = this.getOwnerComponent().getModel("appModel").getProperty("/pq7Url");
+                url = this.getOwnerComponent().getModel("appModel").getProperty("/pq7Url");
             } else {
-                var url = this.getOwnerComponent().getModel("appModel").getProperty("/pp7Url");
+                url = this.getOwnerComponent().getModel("appModel").getProperty("/pd7Url");
             }
-            var aData = jQuery.ajax({
+            const aData = $.ajax({
                 type: "GET",
                 contentType: "application/json",
                 url: url,
@@ -159,15 +154,16 @@ sap.ui.define([
                     loginModel.setProperty("/lastname", data.lastname);
                     loginModel.setProperty("/email", data.email);
                     loginModel.setProperty("/telephone", data.phone);
-
+                },
+                error: function (error) {
+                    Log.error(error);
                 }
             });
-            //this.getView().setModel(oModel);
         },
 
         createTextsearchModel: function (data) {
             var myResults = [];
-            var textsearchModel = this.getOwnerComponent().getModel("textsearchModel");
+            var textsearchModel = this.getModel("textsearchModel");
             var sampledata = textsearchModel.getData();
             myResults = data.results;
 
@@ -206,14 +202,14 @@ sap.ui.define([
 
         },
 
-        setAllBuildingsToSearchResults: function () {
-            var allBuildings = this.getOwnerComponent().getModel("dropdownModel").getProperty("/buildingset");
-            this.getOwnerComponent().getModel("textsearchModel").setProperty("/buildingresults", allBuildings);
-        },
+        // setAllBuildingsToSearchResults: function () {
+        //     var allBuildings = this.getOwnerComponent().getModel("dropdownModel").getProperty("/buildingset");
+        //     this.getOwnerComponent().getModel("textsearchModel").setProperty("/buildingresults", allBuildings);
+        // },
 
         onFullsearchChange: function (oEvent) {
             var fullsearchText = this.getView().byId("fullsearchInput").getValue();
-            var allBuildings = this.getOwnerComponent().getModel("dropdownModel").getProperty("/buildingset");
+            var allBuildings = this.getModel("buildingSetModel").getData();
             var buildingResults = _.filter(allBuildings, function (obj) {
                 return (obj.city.includes(fullsearchText)) || (obj.buldingName.includes(fullsearchText)) ||
                     (obj.houseNumber.includes(fullsearchText)) || (obj.location.includes(fullsearchText)) || (obj.postalCode.includes(
@@ -221,31 +217,40 @@ sap.ui.define([
                     (obj.street.includes(fullsearchText));
             });
             if (buildingResults.length == 1) {
-                this.getOwnerComponent().getModel("notificationcreateModel").setProperty("/funcLocationId", buildingResults[0].funcLocationId);
-                this.getOwnerComponent().getModel("appModel").setProperty("/selectBuildingEnabled", true);
-                this.getView().byId("fullsearchInput").setValueState("Success");
+                this.getModel("notificationcreateModel").setProperty("/funcLocationId", buildingResults[0].funcLocationId);
+                this.getModel("appModel").setProperty("/selectBuildingEnabled", true);
+                this.byId("fullsearchInput").setValueState("Success");
                 MessageToast.show("Bitte ein Gebäude auswählen!");
             } else if (buildingResults.length > 1) {
-                this.getOwnerComponent().getModel("notificationcreateModel").setProperty("/funcLocationId", buildingResults[0].funcLocationId);
-                this.getOwnerComponent().getModel("appModel").setProperty("/selectBuildingEnabled", true);
-                this.getView().byId("fullsearchInput").setValueState("Success");
+                this.getModel("notificationcreateModel").setProperty("/funcLocationId", buildingResults[0].funcLocationId);
+                this.getModel("appModel").setProperty("/selectBuildingEnabled", true);
+                this.byId("fullsearchInput").setValueState("Success");
                 MessageToast.show("Bitte ein Gebäude auswählen!");
             } else {
-                this.getOwnerComponent().getModel("notificationcreateModel").setProperty("/funcLocationId", "");
-                this.getView().byId("fullsearchInput").setValueState("Error");
-                this.getOwnerComponent().getModel("appModel").setProperty("/selectBuildingEnabled", false);
+                this.getModel("notificationcreateModel").setProperty("/funcLocationId", "");
+                this.byId("fullsearchInput").setValueState("Error");
+                this.getModel("appModel").setProperty("/selectBuildingEnabled", false);
                 MessageToast.show("Keine Gebäude zu dieser Suche gefunden!");
             }
-            this.getOwnerComponent().getModel("textsearchModel").setProperty("/buildingresults", buildingResults);
+            this.getModel("textsearchModel").setProperty("/buildingresults", buildingResults);
         },
 
         onLiveBuildingChangeInput: function (event) {
             var fullsearchText = this.getView().byId("fullsearchInput").getValue();
-            var allBuildings = this.getOwnerComponent().getModel("dropdownModel").getProperty("/buildingset");
+            if (!this._bSelectedFromSuggestionList) {
+                event.getSource().setValue();
+                fullsearchText = "";
+                this._bSelectedFromSuggestionList = true;
+            }
+            const buildingSetModel = this.getModel("buildingSetModel");
+            var allBuildings = buildingSetModel.getData();
             var buildingResults = _.filter(allBuildings, function (obj) {
-                return (obj.city.includes(fullsearchText)) || (obj.buldingName.includes(fullsearchText)) ||
-                    (obj.houseNumber.includes(fullsearchText)) || (obj.location.includes(fullsearchText)) || (obj.postalCode.includes(
-                        fullsearchText)) ||
+                return (obj.city.includes(fullsearchText)) ||
+                    (obj.buldingName.includes(fullsearchText)) ||
+                    (obj.funcLocationId.includes(fullsearchText)) ||
+                    (obj.houseNumber.includes(fullsearchText)) ||
+                    (obj.location.includes(fullsearchText)) ||
+                    (obj.postalCode.includes(fullsearchText)) ||
                     (obj.street.includes(fullsearchText)) ||
                     (obj.gebisNumber.includes(fullsearchText));
             });
@@ -256,19 +261,19 @@ sap.ui.define([
             } else {
                 // this.getView().byId("fullsearchInput").setValueState("Error");
                 // this.getView().byId("fullsearchInput").setValueStateText("Keine Gebäude zu dieser Suche gefunden!");
-                this.getOwnerComponent().getModel("notificationcreateModel").setProperty("/funcLocationId", "");
+                this.getModel("notificationcreateModel").setProperty("/funcLocationId", "");
                 //	MessageToast.show("Keine Gebäude zu dieser Suche gefunden!");
             }
         },
 
         onLiveChangeInput: function (event) {
-            var notificationModel = this.getOwnerComponent().getModel("notificationcreateModel");
+            var notificationModel = this.getModel("notificationcreateModel");
             notificationModel.setProperty(event.getSource().mBindingInfos.value.binding.sPath, event.getSource().getValue());
             //	this.getView().fillTextArea();
         },
 
         onSelectBuilding: function (oEvent) {
-            this.getOwnerComponent().getModel("notificationcreateModel").setProperty("/funcLocationId", oEvent.getSource().getSelectedKey());
+            this.getModel("notificationcreateModel").setProperty("/funcLocationId", oEvent.getSource().getSelectedKey());
             var selectedFunLocationId = this.getView().byId("selectBuilding").getSelectedKey();
             if (!selectedFunLocationId) {
                 this.getView().byId("selectBuilding").setValueState("Error");
@@ -277,79 +282,69 @@ sap.ui.define([
             }
         },
 
-        onBuidlingTitleClicked: function () {
-            var sKey = this.byId("fullsearchInput").getValue();
-            // var selectedId = oColumnListItem.getParameters().selectedRow.getId()
-            // var selectedIndex = selectedId.split("-").slice(-1).pop();
-
-            // var selectedBuilding = this.getOwnerComponent().getModel("dropdownModel").getProperty("/buildingset")[selectedIndex];
-            // this.getOwnerComponent().getModel("notificationcreateModel").setProperty("/funcLocationId", selectedBuilding.funcLocationId);
-            // this.getOwnerComponent().getModel("dropdownModel").setProperty("/selectedBuildingName", selectedBuilding.buldingName);
-            // this.getView().byId("fullsearchInput").setValue(selectedBuilding.buldingName);
-        },
-
-        onSuggestionItemSelected: function (oColumnListItem) {
-            var sKey = this.byId("fullsearchInput").getValue();
-            var selectedId = oColumnListItem.getParameters().selectedRow.getId()
-            var selectedIndex = selectedId.split("-").slice(-1).pop();
-
-            var selectedBuilding = this.getOwnerComponent().getModel("dropdownModel").getProperty("/buildingset")[selectedIndex];
-            this.getOwnerComponent().getModel("notificationcreateModel").setProperty("/funcLocationId", selectedBuilding.funcLocationId);
-            this.getOwnerComponent().getModel("dropdownModel").setProperty("/selectedBuildingName", selectedBuilding.buldingName);
-            var searchInputText = selectedBuilding.buldingName + ", " + selectedBuilding.street + " " + selectedBuilding.houseNumber + ", " + selectedBuilding.postalCode + " " + selectedBuilding.city;
-            this.getView().byId("fullsearchInput").setValue(searchInputText);
+        onSuggestionItemSelected: function (event) {
+            const fullsearchInputField = this.byId("fullsearchInput");
+            var selectedId = event.getParameter("selectedRow").getId();
+            const aSelectedId = selectedId.split("-");
+            var selectedIndex = aSelectedId[aSelectedId.length - 1];
+            var selectedBuilding = this.getModel("buildingSetModel").getData()[selectedIndex];
+            this.getModel("notificationcreateModel").setProperty("/funcLocationId", selectedBuilding.funcLocationId);
+            this.getModel("dropdownModel").setProperty("/selectedBuildingName", selectedBuilding.buldingName);
+            var searchInputText = selectedBuilding.buldingName + ", "
+                + selectedBuilding.street + " "
+                + selectedBuilding.houseNumber + ", "
+                + selectedBuilding.postalCode + " "
+                + selectedBuilding.city;
+            fullsearchInputField.setValue(searchInputText);
+            this._bSelectedFromSuggestionList = false;
         },
 
         onSelectCategory: function (oEvent) {
-            this.getOwnerComponent().getModel("notificationcreateModel").setProperty("/category", oEvent.getSource().getSelectedKey());
+            this.getModel("notificationcreateModel").setProperty("/category", oEvent.getSource().getSelectedKey());
         },
 
         _validateData: function () {
             var that = this;
-            var promise = new Promise(function (resolved, rejected) {
-                var shortText = that.getView().byId("textAreaShorText").getValue();
-                var selectedFunLocationId = that.getOwnerComponent().getModel("notificationcreateModel").getProperty("/funcLocationId");
-                //	var selectedFunLocationId = that.getView().byId("selectBuilding").getSelectedKey();
+            return new Promise(function (resolved, rejected) {
+                const shortTextControl = this.byId("idInputShortText");
+                const fullSearchControl = this.byId("fullsearchInput");
+                var shortText = shortTextControl.getValue();
+                var selectedFunLocationId = this.getModel("notificationcreateModel").getProperty("/funcLocationId");
                 shortText.trim();
-                if (!shortText || shortText == "") {
-                    MessageToast.show("Bitte Überschrift eingeben!");
-                    that.getView().byId("textAreaShorText").setValueState("Error");
+                if (shortText.length === 0) {
+                    shortTextControl.setValueState("Error");
+                    shortTextControl.setValueStateText("Dieses Feld darf nicht leer sein.");
                     rejected("error");
-                } else if (shortText.length > 40) {
-                    MessageToast.show("Überschrift max. 40 Zeichen erlaubt");
-                    that.getView().byId("textAreaShorText").setValueState("Error");
-                    rejected("error");
-                } else if (!selectedFunLocationId || selectedFunLocationId == "") {
-                    //	that.getView().byId("selectBuilding").setValueState("Error");
-                    that.getView().byId("fullsearchInput").setValueState("Error");
-                    MessageToast.show("Bitte ein Ort suchen und Gebäude auswählen!");
-                    rejected("error");
-                } else {
-                    resolved("no_error");
                 }
-            });
-            return promise;
+                if (!selectedFunLocationId || selectedFunLocationId === "") {
+                    fullSearchControl.setValueState("Error");
+                    shortTextControl.setValueStateText("Dieses Feld darf nicht leer sein.");
+                    // MessageToast.show("Bitte ein Ort suchen und Gebäude auswählen!");
+                    rejected("error");
+                }
+                resolved();
+            }.bind(this));
         },
 
-        handleShortTextLiveChange: function () {
-            var shortText = this.getView().byId("textAreaShorText").getValue();
-            shortText.trim();
-            if (!shortText || shortText == "") {
-                this.getView().byId("textAreaShorText").setValueState("Error");
-            } else if (shortText.length > 40) {
-                this.getView().byId("textAreaShorText").setValueState("Error");
-            } else {
-                this.getView().byId("textAreaShorText").setValueState("Success");
-            }
-        },
+        // handleShortTextLiveChange: function () {
+        //     var shortText = this.byId("textAreaShorText").getValue();
+        //     shortText.trim();
+        //     if (!shortText || shortText == "") {
+        //         this.byId("textAreaShorText").setValueState("Error");
+        //     } else if (shortText.length > 40) {
+        //         this.byId("textAreaShorText").setValueState("Error");
+        //     } else {
+        //         this.byId("textAreaShorText").setValueState("Success");
+        //     }
+        // },
 
         handleLongTextLiveChange: function () {
-            var shortText = this.getView().byId("textAreaLongText").getValue();
+            var shortText = this.byId("textAreaLongText").getValue();
             shortText.trim();
             if (shortText.length > 1000) {
-                this.getView().byId("textAreaLongText").setValueState("Error");
+                this.byId("textAreaLongText").setValueState("Error");
             } else {
-                this.getView().byId("textAreaLongText").setValueState("Success");
+                this.byId("textAreaLongText").setValueState("Success");
             }
         },
 
@@ -357,68 +352,67 @@ sap.ui.define([
             var that = this;
             this._validateData()
                 .then(function (result) {
-                    if (result == "no_error") {
-                        var notification = that.getOwnerComponent().getModel("notificationcreateModel").getData();
-                        var oData = that.getOwnerComponent().getModel("notificationcreateModel").getData();
-                        var oDataModel = that.getOwnerComponent().getModel("order");
-                        var oDialog = that.getView().byId("BusyDialog");
-                        //	var selectedFunLocationId = that.getView().byId("selectBuilding").getSelectedKey();
-                        var selectedFunLocationId = that.getOwnerComponent().getModel("notificationcreateModel").getProperty("/funcLocationId");
-                        var selectedCategory = that.getView().byId("selectCategory").getSelectedKey();
-                        oData.reportedBy_l = that.getOwnerComponent().getModel("loginModel").getProperty("/lastname");
-                        oData.reportedBy_f = that.getOwnerComponent().getModel("loginModel").getProperty("/firstname");
-                        oData.reportedBy_t = that.getOwnerComponent().getModel("loginModel").getProperty("/telephone");
-                        oData.reportedBy_e = that.getOwnerComponent().getModel("loginModel").getProperty("/email");
+                    // if (result == "no_error") {
+                    var notification = this.getModel("notificationcreateModel").getData();
+                    var oData = this.getModel("notificationcreateModel").getData();
+                    var oDataModel = this.getModel("order");
+                    var oDialog = this.byId("BusyDialog");
+                    //	var selectedFunLocationId = this.byId("selectBuilding").getSelectedKey();
+                    var selectedFunLocationId = this.getModel("notificationcreateModel").getProperty("/funcLocationId");
+                    var selectedCategory = this.byId("selectCategory").getSelectedKey();
+                    oData.reportedBy_l = this.getModel("loginModel").getProperty("/lastname");
+                    oData.reportedBy_f = this.getModel("loginModel").getProperty("/firstname");
+                    oData.reportedBy_t = this.getModel("loginModel").getProperty("/telephone");
+                    oData.reportedBy_e = this.getModel("loginModel").getProperty("/email");
 
-                        oData.funcLocationId = selectedFunLocationId;
-                        oData.category = selectedCategory;
-                        oDialog.open();
+                    oData.funcLocationId = selectedFunLocationId;
+                    oData.category = selectedCategory;
+                    oDialog.open();
 
-                        oDataModel.create("/NotificationCreateSet", oData, {
-                            success: function (response, responseHeaders) {
-                                var result = {
-                                    data: sapNotificaiton,
-                                    response: response
-                                };
+                    oDataModel.create("/NotificationCreateSet", oData, {
+                        success: function (response, responseHeaders) {
+                            var result = {
+                                data: sapNotificaiton,
+                                response: response
+                            };
 
-                                if (responseHeaders && responseHeaders.headers && responseHeaders.headers["sap-message"]) {
-                                    var messageObject = JSON.parse(responseHeaders.headers["sap-message"]);
-                                    if (messageObject && messageObject.severity === "error") {
-                                        //  reject(messageObject);
-                                        toasMsg = "Unbekannter Fehler beim Anlegen einer Meldung"
-                                        oDialog.close();
-                                        return;
-                                    }
-                                }
-                                //
-                                var allImages = that.getOwnerComponent().getModel("notificationDIRModel").getProperty("/images");
-                                if (allImages.length != 0) {
-                                    that.uploadImagesToNotification(allImages, result.response.notificationId);
-                                } else {
-                                    //toasMsg = "Meldung " + result.response.notificationId + " gesichert";
+                            if (responseHeaders && responseHeaders.headers && responseHeaders.headers["sap-message"]) {
+                                var messageObject = JSON.parse(responseHeaders.headers["sap-message"]);
+                                if (messageObject && messageObject.severity === "error") {
+                                    //  reject(messageObject);
+                                    toasMsg = "Unbekannter Fehler beim Anlegen einer Meldung"
                                     oDialog.close();
-                                    //open
-                                    that._showSuccessDialog(result.response.notificationId);
-
+                                    return;
                                 }
-                                //  resolve(result);
-                            },
-                            error: function (error) {
+                            }
+                            //
+                            var allImages = this.getModel("notificationDIRModel").getProperty("/images");
+                            if (allImages.length != 0) {
+                                this.uploadImagesToNotification(allImages, result.response.notificationId);
+                            } else {
+                                //toasMsg = "Meldung " + result.response.notificationId + " gesichert";
+                                oDialog.close();
+                                //open
+                                this._showSuccessDialog(result.response.notificationId);
 
-                                if (error.responseText) {
-                                    let messageObject = JSON.parse(error.responseText);
-                                    if (messageObject.error.message.value) {
-                                        toasMsg = messageObject.error.message.value;
-                                        oDialog.close();
-                                        return;
-                                    }
+                            }
+                            //  resolve(result);
+                        }.bind(this),
+                        error: function (error) {
+                            if (error.responseText) {
+                                let messageObject = JSON.parse(error.responseText);
+                                if (messageObject.error.message.value) {
+                                    toasMsg = messageObject.error.message.value;
+                                    oDialog.close();
+                                    return;
                                 }
-                                //reject(error);
-                            },
-                        });
-                    }
+                            }
+                            //reject(error);
+                        },
+                    });
+                    // }
                     return;
-                });
+                }.bind(this));
         },
 
         _fileToBase64String: function (file) {
@@ -450,7 +444,7 @@ sap.ui.define([
         uploadImagesToNotification: function (allImages, notificaitonId) {
             var that = this;
             var oDialog = this.getView().byId("BusyDialog");
-            var oDataModel = this.getOwnerComponent().getModel("order");
+            var oDataModel = this.getModel("order");
             var mimeTypes = "";
             var base64Strings = "";
             var fileNames = "";
@@ -509,7 +503,6 @@ sap.ui.define([
         onChange: function (oEvent) {
             var that = this;
             var oUploadCollection = oEvent.getSource();
-            // Header Token
             var oCustomerHeaderToken = new UploadCollectionParameter({
                 name: "x-csrf-token",
                 value: "securityTokenFromModel"
@@ -518,15 +511,14 @@ sap.ui.define([
 
             var files = oEvent.getParameter("files");
             for (var i = 0; i < files.length; i++) {
-                //fill array with uploaded file
                 this._fileToBase64String(files[i])
                     .then(function (result) {
                         var fileData = result
-                        var allImages = that.getOwnerComponent().getModel("notificationDIRModel").getProperty("/images");
+                        var allImages = this.getModel("notificationDIRModel").getProperty("/images");
                         allImages.push(fileData);
-                        that.getOwnerComponent().getModel("notificationDIRModel").setProperty("/images", allImages);
+                        this.getModel("notificationDIRModel").setProperty("/images", allImages);
                         return;
-                    });
+                    }.bind(this));
             }
         },
 

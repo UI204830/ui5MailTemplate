@@ -1,4 +1,4 @@
-const fsExtra = require('fs-extra');
+    const fsExtra = require('fs-extra');
 const path = require('path');
 
 module.exports.do = (from, to) => {

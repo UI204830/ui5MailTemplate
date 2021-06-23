@@ -8,7 +8,6 @@
     },
     "title": "{{appTitle}}",
     "description": "{{appDescription}}",
-
     "dataSources": {
       "mainService": {
         "uri": "./",
@@ -24,6 +23,10 @@
       },
       "appService": {
         "uri": "model/AppModel.json",
+        "type": "JSON"
+      },
+      "buildingSetService": {
+        "uri": "model/BuildingSetModel.json",
         "type": "JSON"
       },
       "notificationcreateService": {
@@ -89,6 +92,11 @@
       "appModel": {
         "type": "sap.ui.model.json.JSONModel",
         "dataSource": "appService",
+        "preload": true
+      },
+      "buildingSetModel": {
+        "type": "sap.ui.model.json.JSONModel",
+        "dataSource": "buildingSetService",
         "preload": true
       },
       "dropdownModel": {
