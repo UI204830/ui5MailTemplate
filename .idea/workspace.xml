@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="669afe59-bfc6-456b-8ed2-86af1bad91ca" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="669afe59-bfc6-456b-8ed2-86af1bad91ca" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -168,7 +166,7 @@
       <workItem from="1624527132183" duration="25359000" />
       <workItem from="1624704152576" duration="597000" />
       <workItem from="1624741676820" duration="460000" />
-      <workItem from="1624754595579" duration="76099000" />
+      <workItem from="1624754595579" duration="76399000" />
     </task>
     <task id="LOCAL-00001" summary="initial commit">
       <created>1623317442315</created>
@@ -226,7 +224,14 @@
       <option name="project" value="LOCAL" />
       <updated>1625043581138</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="fixed buildingSet model size limit&#10;made app visible in safari browser over Web@Work&#10;set responsive layout for different device sizes&#10;cleanup code">
+      <created>1625045547113</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1625045547113</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
