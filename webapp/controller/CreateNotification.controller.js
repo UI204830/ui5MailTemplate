@@ -45,7 +45,7 @@ sap.ui.define([
             var oDataModel, oDataUrl;
             var complete_url = window.location.href;
 
-            if (complete_url.includes("portal.gate.rwe.com")) {
+            if (complete_url.includes("gate.rwe.com")) {
                 oDataUrl = appModel.getProperty("/serverUrlMP2");
             } else if (complete_url.includes("gateqa")) {
                 oDataUrl = appModel.getProperty("/serverUrlMQ2");

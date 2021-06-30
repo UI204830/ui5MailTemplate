@@ -5,19 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="669afe59-bfc6-456b-8ed2-86af1bad91ca" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/webapp/view/fragment/BuildingSetValueHelp.fragment.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/build-dist.js" beforeDir="false" afterPath="$PROJECT_DIR$/build/build-dist.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/copy-sources.js" beforeDir="false" afterPath="$PROJECT_DIR$/build/copy-sources.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ui5.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/ui5.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webapp/WEB-INF/web.xml" beforeDir="false" afterPath="$PROJECT_DIR$/webapp/WEB-INF/web.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/webapp/controller/CreateNotification.controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/webapp/controller/CreateNotification.controller.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webapp/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/webapp/css/style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webapp/i18n/i18n.properties" beforeDir="false" afterPath="$PROJECT_DIR$/webapp/i18n/i18n.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webapp/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/webapp/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webapp/util/Database.js" beforeDir="false" afterPath="$PROJECT_DIR$/webapp/util/Database.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webapp/view/CreateNotification.view.xml" beforeDir="false" afterPath="$PROJECT_DIR$/webapp/view/CreateNotification.view.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -180,7 +169,7 @@
       <workItem from="1624527132183" duration="25359000" />
       <workItem from="1624704152576" duration="597000" />
       <workItem from="1624741676820" duration="460000" />
-      <workItem from="1624754595579" duration="73702000" />
+      <workItem from="1624754595579" duration="74733000" />
     </task>
     <task id="LOCAL-00001" summary="initial commit">
       <created>1623317442315</created>
@@ -224,7 +213,14 @@
       <option name="project" value="LOCAL" />
       <updated>1624413360674</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="fixed buildingSet model size limit&#10;made app visible in safari browser over Web@Work&#10;set responsive layout for different device sizes&#10;cleanup code">
+      <created>1625042551695</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1625042551695</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -260,6 +256,7 @@
     <MESSAGE value="initial commit" />
     <MESSAGE value="added dist to .gitignore" />
     <MESSAGE value="bugfixes and cleanup code" />
-    <option name="LAST_COMMIT_MESSAGE" value="bugfixes and cleanup code" />
+    <MESSAGE value="fixed buildingSet model size limit&#10;made app visible in safari browser over Web@Work&#10;set responsive layout for different device sizes&#10;cleanup code" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixed buildingSet model size limit&#10;made app visible in safari browser over Web@Work&#10;set responsive layout for different device sizes&#10;cleanup code" />
   </component>
 </project>
