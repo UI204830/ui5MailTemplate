@@ -4,6 +4,7 @@
   "description": "",
   "scripts": {
     "build:WebContent": "node ./build/build-dist",
+    "build:ui5:debug": "ui5 build --all --clean-dest",
     "build:ui5:exclude:debug": "ui5 build --all --clean-dest --exclude-task=createDebugFiles",
     "start:meldeapp": "ui5 serve --open ./index.html#"
   },

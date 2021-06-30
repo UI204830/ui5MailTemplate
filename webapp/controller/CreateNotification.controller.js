@@ -1,6 +1,7 @@
 /* global _:true */
 sap.ui.define([
     "meldeappui5/controller/BaseController",
+    "meldeappui5/util/Database",
     "sap/base/Log",
     "sap/m/library",
     "sap/ui/model/json/JSONModel",
@@ -11,9 +12,9 @@ sap.ui.define([
     "meldeappui5/libs/loadash",
     "sap/m/UploadCollectionParameter",
     "sap/m/MessageBox"
-
 ], function (
     BaseController,
+    Database,
     Log,
     mobileLibrary,
     JSONModel,
@@ -32,22 +33,16 @@ sap.ui.define([
     return BaseController.extend("meldeappui5.controller.CreateNotification", {
 
         _bSelectedFromSuggestionList: false,
+        _database: {},
 
         onInit: function () {
             this._checkForRobotics();
             this.readUserDataFromPortal();
-            var oDialog = this.getView().byId("BusyDialog");
+            const oDialog = this.getView().byId("BusyDialog");
             oDialog.open();
 
-            // var oModel = this.getOwnerComponent().getModel("productsModel");
-            // var oModel2 = this.getOwnerComponent().getModel("dropdownModel");
-            // this.getView().setModel(oModel);
-            // this.getView().setModel(oModel2);
-            //	this.getOwnerComponent().getModel("dropdownModel").setSizeLimit(500);
-
             var appModel = this.getModel("appModel");
-            var oOrderModel, oDataUrl;
-            var that = this;
+            var oDataModel, oDataUrl;
             var complete_url = window.location.href;
 
             if (complete_url.includes("portal.gate.rwe.com")) {
@@ -58,58 +53,55 @@ sap.ui.define([
                 oDataUrl = appModel.getProperty("/serverUrlMK2");
             }
 
-            oOrderModel = new ODataModel(oDataUrl, {
+            oDataModel = new ODataModel(oDataUrl, {
                 useBatch: false,
                 DefaultCountMode: "Inline",
                 DefaultBindingMode: "TwoWay"
             });
 
-            this.setModel(oOrderModel, "order");
+            this.setModel(oDataModel, "order");
 
-            oOrderModel.read("/BuildingSet", {
-                success: function (data) {
+            Database.getBuildingSet(oDataModel)
+                .then(function (data) {
                     const model = new JSONModel(data.results);
+                    this._database._buildingSetData = data.results;
                     model.setSizeLimit(500);
                     this.setModel(model, "buildingSetModel");
                     this.createTextsearchModel(data);
-                }.bind(this),
-                error: function (error) {
-                    Log.error(error);
-                }
-            });
-
-            oOrderModel.read("/CategorySet", {
-                success: function (data) {
-                    // resolve(data);
-                    var mfmCatagories = _.filter(data.results, function (obj) {
+                    return Database.getCategorySet(oDataModel);
+                }.bind(this))
+                .then(function (data) {
+                    const mfmCatagories = _.filter(data.results, function (obj) {
                         return (obj.group.includes("BAUMFM"));
                     });
-                    that.getOwnerComponent().getModel("dropdownModel").setProperty("/categoryset", mfmCatagories);
-                },
-                error: function (error) {
-                }
-            });
-            oOrderModel.read("/PlanGroupSet", {
-                success: function (data) {
-                    // resolve(data);
-                    that.getOwnerComponent().getModel("dropdownModel").setProperty("/plangroupset", data.results);
-                },
-                error: function (error) {
-                }
-            });
+                    this._database._categorySetData = mfmCatagories;
+                    this.getModel("dropdownModel").setProperty("/categoryset", mfmCatagories);
+                    return Database.getPlanGroupSet(oDataModel);
+                }.bind(this))
+                .then(function (data) {
+                    this._database._planGroupSetData = data.results;
+                    this.getModel("dropdownModel").setProperty("/plangroupset", data.results);
+                    return Database.getPrioritySet(oDataModel);
+                }.bind(this))
+                .then(function (data) {
+                    this._database._prioritySetData = data.results;
+                    this.getModel("dropdownModel").setProperty("/priorityset", data.results);
+                    this.byId("BusyDialog").close();
+                }.bind(this))
+                .catch(function (error) {
+                    this.byId("BusyDialog").close();
+                    Log.error(error);
+                }.bind(this));
+        },
 
-            oOrderModel.read("/PrioritySet", {
-                success: function (data) {
-                    that.getOwnerComponent().getModel("dropdownModel").setProperty("/priorityset", data.results);
-                },
-                error: function (error) {
-                }
-            });
+        onAfterRendering: function () {
+            this.byId("mfmTitle").addStyleClass("mfmTitleClass");
+            this.byId("hintMissingBuildingsText").addStyleClass("hintMissingBuildingsClass");
         },
 
         _checkForRobotics: function () {
             var that = this;
-            this.getOwnerComponent().getModel("appModel").setProperty("/robotics", false);
+            this.getModel("appModel").setProperty("/robotics", false);
             var complete_url = window.location.href;
             var pieces = complete_url.split("?");
             if (pieces.length > 1) {
@@ -117,26 +109,19 @@ sap.ui.define([
                 $.each(params, function (key, value) {
                     var param_value = value.split("=");
                     if (value.includes("Robotics=true")) {
-                        that.getOwnerComponent().getModel("appModel").setProperty("/robotics", true);
+                        that.getModel("appModel").setProperty("/robotics", true);
                     }
-                    //console.log(key + ": " + value + " | " + param_value[1]);
                 });
             }
         },
 
-        onBeforeRendering: function () {
-            var oDialog = this.getView().byId("BusyDialog");
-
-            oDialog.close();
-        },
-
         readUserDataFromPortal: function () {
-            const loginModel = this.getOwnerComponent().getModel("loginModel");
+            const loginModel = this.getModel("loginModel");
             const complete_url = window.location.href;
             let url = "";
             if (complete_url.includes("gatecons")) {
                 url = this.getOwnerComponent().getModel("appModel").getProperty("/pc7Url");
-            } else if (complete_url.includes("portal.gate.rwe.com")) {
+            } else if (complete_url.includes("gate.rwe.com")) {
                 url = this.getOwnerComponent().getModel("appModel").getProperty("/pp7Url");
             } else if (complete_url.includes("gateqa")) {
                 url = this.getOwnerComponent().getModel("appModel").getProperty("/pq7Url");
@@ -197,15 +182,10 @@ sap.ui.define([
                 textsearchModel.setData(sampledata);
             }
 
-            var nonDuplidatedData = _.uniqBy(sampledata.fulltext, 'text');
-            this.getOwnerComponent().getModel("textsearchModel").setProperty("/fulltext", nonDuplidatedData);
+            var uniqueData = _.uniqBy(sampledata.fulltext, 'text');
+            this.getModel("textsearchModel").setProperty("/fulltext", uniqueData);
 
         },
-
-        // setAllBuildingsToSearchResults: function () {
-        //     var allBuildings = this.getOwnerComponent().getModel("dropdownModel").getProperty("/buildingset");
-        //     this.getOwnerComponent().getModel("textsearchModel").setProperty("/buildingresults", allBuildings);
-        // },
 
         onFullsearchChange: function (oEvent) {
             var fullsearchText = this.getView().byId("fullsearchInput").getValue();
@@ -235,59 +215,101 @@ sap.ui.define([
             this.getModel("textsearchModel").setProperty("/buildingresults", buildingResults);
         },
 
+
         onLiveBuildingChangeInput: function (event) {
-            var fullsearchText = this.getView().byId("fullsearchInput").getValue();
-            if (!this._bSelectedFromSuggestionList) {
-                event.getSource().setValue();
-                fullsearchText = "";
-                this._bSelectedFromSuggestionList = true;
-            }
+            const fullTextInputControl = this.getView().byId("fullsearchInput");
+            let fullsearchText = event.getParameter("value").toLocaleLowerCase();
+
+            // let allBuildings = this.getModel("dropdownModel").getProperty("/buildingset");
+
             const buildingSetModel = this.getModel("buildingSetModel");
-            var allBuildings = buildingSetModel.getData();
+            let allBuildings = buildingSetModel.getData();
             var buildingResults = _.filter(allBuildings, function (obj) {
-                return (obj.city.includes(fullsearchText)) ||
-                    (obj.buldingName.includes(fullsearchText)) ||
-                    (obj.funcLocationId.includes(fullsearchText)) ||
-                    (obj.houseNumber.includes(fullsearchText)) ||
-                    (obj.location.includes(fullsearchText)) ||
-                    (obj.postalCode.includes(fullsearchText)) ||
-                    (obj.street.includes(fullsearchText)) ||
-                    (obj.gebisNumber.includes(fullsearchText));
+                return (obj.city.toLocaleLowerCase().includes(fullsearchText)) ||
+                    (obj.buldingName.toLocaleLowerCase().includes(fullsearchText)) ||
+                    (obj.funcLocationId.toLocaleLowerCase().includes(fullsearchText)) ||
+                    (obj.houseNumber.toLocaleLowerCase().includes(fullsearchText)) ||
+                    (obj.location.toLocaleLowerCase().includes(fullsearchText)) ||
+                    (obj.postalCode.toLocaleLowerCase().includes(fullsearchText)) ||
+                    (obj.street.toLocaleLowerCase().includes(fullsearchText)) ||
+                    (obj.gebisNumber.toLocaleLowerCase().includes(fullsearchText));
             });
+            this.getModel("dropdownModel").setProperty("/buildingset", buildingResults);
             if (buildingResults.length > 0) {
-                this.getView().byId("fullsearchInput").setValueState("Success");
-                this.getView().byId("fullsearchInput").setValueStateText("Bitte ein Gebäude auswählen!");
-                //	MessageToast.show("Bitte ein Gebäude auswählen!");
+                fullTextInputControl.setValueState("None");
+                fullTextInputControl.setValueStateText("Bitte ein vorhandenes Gebäude auswählen!");
             } else {
-                // this.getView().byId("fullsearchInput").setValueState("Error");
-                // this.getView().byId("fullsearchInput").setValueStateText("Keine Gebäude zu dieser Suche gefunden!");
                 this.getModel("notificationcreateModel").setProperty("/funcLocationId", "");
-                //	MessageToast.show("Keine Gebäude zu dieser Suche gefunden!");
+            }
+            this._bSelectedFromSuggestionList = false;
+        },
+
+        onValueHelpRequest: function (event) {
+            var oView = this.getView();
+
+            if (!this._pValueHelpDialog) {
+                this._pValueHelpDialog = Fragment.load({
+                    id: oView.getId(),
+                    name: "meldeappui5.view.fragment.BuildingSetValueHelp",
+                    controller: this
+                }).then(function (oValueHelpDialog) {
+                    oView.addDependent(oValueHelpDialog);
+                    return oValueHelpDialog;
+                });
+            }
+            this._pValueHelpDialog.then(function (oValueHelpDialog) {
+                this._configValueHelpDialog(oValueHelpDialog);
+                oValueHelpDialog.open();
+            }.bind(this));
+        },
+
+        _configValueHelpDialog: function (oValueHelpDialog) {
+            var sInputValue = this.byId("fullsearchInput").getValue(),
+                aBuildings = this.getModel("buildingSetModel").getData();
+
+            aBuildings.forEach(function (building) {
+                building.selected = (building.buldingName === sInputValue);
+            });
+            this.getModel("dropdownModel").setProperty("/buildingset", aBuildings);
+
+            oValueHelpDialog.addStyleClass("sapUiResponsivePadding--header sapUiResponsivePadding--subHeader sapUiResponsivePadding--content sapUiResponsivePadding--footer");
+            syncStyleClass("sapUiSizeCompact", this.getView(), oValueHelpDialog);
+        },
+
+        onLiveChangeShortText: function (event) {
+            const src = event.getSource();
+            const val = src.getValue();
+            if (val.length > 0) {
+                src.setValueState("None");
+                src.setValueStateText("");
             }
         },
 
         onLiveChangeInput: function (event) {
             var notificationModel = this.getModel("notificationcreateModel");
             notificationModel.setProperty(event.getSource().mBindingInfos.value.binding.sPath, event.getSource().getValue());
-            //	this.getView().fillTextArea();
         },
 
-        onSelectBuilding: function (oEvent) {
-            this.getModel("notificationcreateModel").setProperty("/funcLocationId", oEvent.getSource().getSelectedKey());
-            var selectedFunLocationId = this.getView().byId("selectBuilding").getSelectedKey();
-            if (!selectedFunLocationId) {
-                this.getView().byId("selectBuilding").setValueState("Error");
-            } else {
-                this.getView().byId("selectBuilding").setValueState("Success");
-            }
-        },
+        // onSelectBuilding: function (oEvent) {
+        //     this.getModel("notificationcreateModel").setProperty("/funcLocationId", oEvent.getSource().getSelectedKey());
+        //     var selectedFunLocationId = this.getView().byId("selectBuilding").getSelectedKey();
+        //     if (!selectedFunLocationId) {
+        //         this.getView().byId("selectBuilding").setValueState("Error");
+        //     } else {
+        //         this.getView().byId("selectBuilding").setValueState("Success");
+        //     }
+        // },
 
         onSuggestionItemSelected: function (event) {
             const fullsearchInputField = this.byId("fullsearchInput");
-            var selectedId = event.getParameter("selectedRow").getId();
-            const aSelectedId = selectedId.split("-");
-            var selectedIndex = aSelectedId[aSelectedId.length - 1];
-            var selectedBuilding = this.getModel("buildingSetModel").getData()[selectedIndex];
+            const bindingPath = event.getParameter("selectedItem").getBindingContextPath();
+            const selectedBuilding = this.getModel("dropdownModel").getProperty(bindingPath);
+
+            // const selectedId = event.getParameter("selectedRow").getId();
+            // const aSelectedId = selectedId.split("-");
+            // const selectedIndex = aSelectedId[aSelectedId.length - 1];
+            // const selectedBuilding = this.getModel("buildingSetModel").getData()[selectedIndex];
+
             this.getModel("notificationcreateModel").setProperty("/funcLocationId", selectedBuilding.funcLocationId);
             this.getModel("dropdownModel").setProperty("/selectedBuildingName", selectedBuilding.buldingName);
             var searchInputText = selectedBuilding.buldingName + ", "
@@ -296,7 +318,23 @@ sap.ui.define([
                 + selectedBuilding.postalCode + " "
                 + selectedBuilding.city;
             fullsearchInputField.setValue(searchInputText);
-            this._bSelectedFromSuggestionList = false;
+            this._bSelectedFromSuggestionList = true;
+            this.byId("fullsearchInput").setValueState("None");
+            this.byId("fullsearchInput").setValueStateText("");
+        },
+
+        onValueHelpDialogClose: function (oEvent) {
+            // reset the filter
+            var oBinding = oEvent.getSource().getBinding("items");
+            oBinding.filter([]);
+
+            var aContexts = oEvent.getParameter("selectedContexts");
+            if (aContexts && aContexts.length) {
+                MessageToast.show("You have chosen " + aContexts.map(function (oContext) {
+                    return oContext.getObject().buldingName;
+                }).join(", "));
+            }
+
         },
 
         onSelectCategory: function (oEvent) {
@@ -309,55 +347,47 @@ sap.ui.define([
                 const shortTextControl = this.byId("idInputShortText");
                 const fullSearchControl = this.byId("fullsearchInput");
                 var shortText = shortTextControl.getValue();
+                var fullSearchText = fullSearchControl.getValue();
                 var selectedFunLocationId = this.getModel("notificationcreateModel").getProperty("/funcLocationId");
                 shortText.trim();
                 if (shortText.length === 0) {
                     shortTextControl.setValueState("Error");
                     shortTextControl.setValueStateText("Dieses Feld darf nicht leer sein.");
-                    rejected("error");
+                    rejected();
                 }
-                if (!selectedFunLocationId || selectedFunLocationId === "") {
+                if (fullSearchText.length === 0) {
                     fullSearchControl.setValueState("Error");
-                    shortTextControl.setValueStateText("Dieses Feld darf nicht leer sein.");
-                    // MessageToast.show("Bitte ein Ort suchen und Gebäude auswählen!");
-                    rejected("error");
+                    fullSearchControl.setValueStateText("Dieses Feld darf nicht leer sein.");
+                    rejected();
+                }
+                if (!selectedFunLocationId && fullSearchText.length > 0) {
+                    fullSearchControl.setValueState("Error");
+                    fullSearchControl.setValueStateText("Bitte ein vorhandenes Gebäude auswählen!");
+                    rejected();
                 }
                 resolved();
             }.bind(this));
         },
-
-        // handleShortTextLiveChange: function () {
-        //     var shortText = this.byId("textAreaShorText").getValue();
-        //     shortText.trim();
-        //     if (!shortText || shortText == "") {
-        //         this.byId("textAreaShorText").setValueState("Error");
-        //     } else if (shortText.length > 40) {
-        //         this.byId("textAreaShorText").setValueState("Error");
-        //     } else {
-        //         this.byId("textAreaShorText").setValueState("Success");
-        //     }
-        // },
 
         handleLongTextLiveChange: function () {
             var shortText = this.byId("textAreaLongText").getValue();
             shortText.trim();
             if (shortText.length > 1000) {
                 this.byId("textAreaLongText").setValueState("Error");
+                this.byId("textAreaLongText").setValueStateText("Es sind maximal 1000 Zeichen erlaubt");
             } else {
-                this.byId("textAreaLongText").setValueState("Success");
+                this.byId("textAreaLongText").setValueState("None");
+                this.byId("textAreaLongText").setValueStateText("");
             }
         },
 
         onCreateNotification: function () {
-            var that = this;
             this._validateData()
                 .then(function (result) {
-                    // if (result == "no_error") {
                     var notification = this.getModel("notificationcreateModel").getData();
                     var oData = this.getModel("notificationcreateModel").getData();
                     var oDataModel = this.getModel("order");
                     var oDialog = this.byId("BusyDialog");
-                    //	var selectedFunLocationId = this.byId("selectBuilding").getSelectedKey();
                     var selectedFunLocationId = this.getModel("notificationcreateModel").getProperty("/funcLocationId");
                     var selectedCategory = this.byId("selectCategory").getSelectedKey();
                     oData.reportedBy_l = this.getModel("loginModel").getProperty("/lastname");
@@ -379,25 +409,21 @@ sap.ui.define([
                             if (responseHeaders && responseHeaders.headers && responseHeaders.headers["sap-message"]) {
                                 var messageObject = JSON.parse(responseHeaders.headers["sap-message"]);
                                 if (messageObject && messageObject.severity === "error") {
-                                    //  reject(messageObject);
                                     toasMsg = "Unbekannter Fehler beim Anlegen einer Meldung"
                                     oDialog.close();
                                     return;
                                 }
                             }
-                            //
                             var allImages = this.getModel("notificationDIRModel").getProperty("/images");
                             if (allImages.length != 0) {
                                 this.uploadImagesToNotification(allImages, result.response.notificationId);
                             } else {
-                                //toasMsg = "Meldung " + result.response.notificationId + " gesichert";
                                 oDialog.close();
-                                //open
                                 this._showSuccessDialog(result.response.notificationId);
 
                             }
-                            //  resolve(result);
                         }.bind(this),
+
                         error: function (error) {
                             if (error.responseText) {
                                 let messageObject = JSON.parse(error.responseText);
@@ -407,10 +433,8 @@ sap.ui.define([
                                     return;
                                 }
                             }
-                            //reject(error);
                         },
                     });
-                    // }
                     return;
                 }.bind(this));
         },
@@ -469,16 +493,15 @@ sap.ui.define([
 
             oDataModel.create("/NotificationDIRSet", oData, {
                 success: function (response, responseHeaders) {
-                    var result = {
+                    const result = {
                         data: sapDIR,
                         response: response
                     };
                     oDialog.close();
-                    //toasMsg = "Meldung " + result.response.notificationId + " gesichert";
                     that._showSuccessDialog(result.response.notificationId);
                 },
                 error: function (error) {
-                    //reject(error);
+                    Log.error(error);
                 }
             });
         },
@@ -489,13 +512,7 @@ sap.ui.define([
                 styleClass: "sapUiResponsivePadding--header sapUiResponsivePadding--content sapUiResponsivePadding--footer",
                 emphasizedAction: "Fertig",
                 onClose: function (sAction) {
-                    if (sAction == "Neue Meldung erstellen") {
-                        location.reload();
-                    } else {
-                        location.reload();
-                        //window.open("https://teamwork.rwe.com/", "_PARENT");
-                        //	URLHelper.redirect("https://teamwork.rwe.com/", true);
-                    }
+                    location.reload();
                 }
             });
         },
@@ -523,7 +540,6 @@ sap.ui.define([
         },
 
         onBeforeUploadStarts: function (oEvent) {
-            // Header Slug
             var oCustomerHeaderSlug = new UploadCollectionParameter({
                 name: "slug",
                 value: oEvent.getParameter("fileName")

@@ -4,7 +4,21 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="669afe59-bfc6-456b-8ed2-86af1bad91ca" name="Default Changelist" comment="" />
+    <list default="true" id="669afe59-bfc6-456b-8ed2-86af1bad91ca" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/webapp/view/fragment/BuildingSetValueHelp.fragment.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/build-dist.js" beforeDir="false" afterPath="$PROJECT_DIR$/build/build-dist.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/copy-sources.js" beforeDir="false" afterPath="$PROJECT_DIR$/build/copy-sources.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ui5.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/ui5.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webapp/WEB-INF/web.xml" beforeDir="false" afterPath="$PROJECT_DIR$/webapp/WEB-INF/web.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webapp/controller/CreateNotification.controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/webapp/controller/CreateNotification.controller.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webapp/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/webapp/css/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webapp/i18n/i18n.properties" beforeDir="false" afterPath="$PROJECT_DIR$/webapp/i18n/i18n.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webapp/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/webapp/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webapp/util/Database.js" beforeDir="false" afterPath="$PROJECT_DIR$/webapp/util/Database.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webapp/view/CreateNotification.view.xml" beforeDir="false" afterPath="$PROJECT_DIR$/webapp/view/CreateNotification.view.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -40,9 +54,6 @@
       <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
     </file-type-list>
   </component>
-  <component name="ProblemsViewState">
-    <option name="selectedIndex" value="1" />
-  </component>
   <component name="ProjectId" id="1tfCvP8xscUonRY2YY7CjZ0cUtU" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
@@ -62,7 +73,7 @@
     <property name="project.structure.last.edited" value="SDKs" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="project.propVCSSupport.CommitDialog" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
     <property name="ts.external.directory.path" value="C:\Users\ui204830\programs\ideaIU-2019.3.3.win\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
@@ -74,28 +85,33 @@
       <recent name="C:\Workspace\app.meldeapp.ui5web" />
     </key>
   </component>
-  <component name="RunManager" selected="JavaScript Debug.opaTests.qunit.html">
-    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
+  <component name="RunManager">
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
           <option name="containerStateName" value="" />
         </value>
       </option>
-      <option name="TEST_OBJECT" value="CLASS" />
-      <properties />
-      <listeners />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
-    </configuration>
-    <configuration name="opaTests.qunit.html" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/app.meldeapp.ui5web/webapp/test/integration/opaTests.qunit.html" useBuiltInWebServerPort="true">
-      <method v="2" />
     </configuration>
     <configuration name="build:WebContent" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
       <package-json value="$PROJECT_DIR$/package.json" />
       <command value="run" />
       <scripts>
         <script value="build:WebContent" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <configuration name="build:ui5:debug" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="build:ui5:debug" />
       </scripts>
       <node-interpreter value="project" />
       <envs />
@@ -134,10 +150,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="npm.build:WebContent" />
-        <item itemvalue="npm.build:ui5:exclude:debug" />
+        <item itemvalue="npm.build:ui5:debug" />
         <item itemvalue="npm.start:meldeapp" />
+        <item itemvalue="npm.build:ui5:exclude:debug" />
         <item itemvalue="npm.test" />
-        <item itemvalue="JavaScript Debug.opaTests.qunit.html" />
       </list>
     </recent_temporary>
   </component>
@@ -159,6 +175,12 @@
       <workItem from="1623414841830" duration="2228000" />
       <workItem from="1624271340160" duration="18017000" />
       <workItem from="1624292606237" duration="40433000" />
+      <workItem from="1624453347843" duration="11000" />
+      <workItem from="1624455838069" duration="16108000" />
+      <workItem from="1624527132183" duration="25359000" />
+      <workItem from="1624704152576" duration="597000" />
+      <workItem from="1624741676820" duration="460000" />
+      <workItem from="1624754595579" duration="73702000" />
     </task>
     <task id="LOCAL-00001" summary="initial commit">
       <created>1623317442315</created>
@@ -239,16 +261,5 @@
     <MESSAGE value="added dist to .gitignore" />
     <MESSAGE value="bugfixes and cleanup code" />
     <option name="LAST_COMMIT_MESSAGE" value="bugfixes and cleanup code" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/webapp/controller/CreateNotification.controller.js</url>
-          <line>50</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>

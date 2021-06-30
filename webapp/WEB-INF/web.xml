@@ -4,7 +4,23 @@
          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
          http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
          version="2.5">
+
   <display-name>YIP_PX7_D~meldeapp~ui5web~rwe.com</display-name>
+
+  <context-param>
+    <param-name>com.sap.ui5.resource.DEV_MODE</param-name>
+    <param-value>true</param-value>
+  </context-param>
+  <context-param>
+    <param-name>com.sap.ui5.resource.USE_CACHE</param-name>
+    <param-value>false</param-value>
+  </context-param>
+  <context-param>
+    <param-name>com.sap.ui5.resource.USE_SERVER_CACHE</param-name>
+    <param-value>false</param-value>
+  </context-param>
+
+
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
     <welcome-file>index.htm</welcome-file>
