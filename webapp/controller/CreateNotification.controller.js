@@ -9,6 +9,7 @@ sap.ui.define([
     "sap/m/MessageToast",
     "sap/ui/core/Fragment",
     "sap/ui/core/syncStyleClass",
+    "sap/ui/unified/FileUploaderParameter",
     "meldeappui5/libs/loadash",
     "sap/m/UploadCollectionParameter",
     "sap/m/MessageBox"
@@ -22,12 +23,14 @@ sap.ui.define([
     MessageToast,
     Fragment,
     syncStyleClass,
+    FileUploaderParameter,
     Loadash,
     UploadCollectionParameter,
     MessageBox) {
     "use strict";
 
     var URLHelper = mobileLibrary.URLHelper;
+    var ListMode = mobileLibrary.ListMode;
     var sapNotificaiton, toasMsg, sapDIR;
 
     return BaseController.extend("meldeappui5.controller.CreateNotification", {
@@ -60,6 +63,7 @@ sap.ui.define([
             });
 
             this.setModel(oDataModel, "order");
+            sap.ui.getCore().setModel(oDataModel, "order");
 
             Database.getBuildingSet(oDataModel)
                 .then(function (data) {
@@ -97,6 +101,13 @@ sap.ui.define([
         onAfterRendering: function () {
             this.byId("mfmTitle").addStyleClass("mfmTitleClass");
             this.byId("hintMissingBuildingsText").addStyleClass("hintMissingBuildingsClass");
+
+            const uploadSet = this.byId("UploadSet");
+            const defaultUploader = uploadSet.getDefaultFileUploader();
+            defaultUploader.setMultiple(true);
+            defaultUploader.setFileType(["jpg", "png", "jpeg"]);
+            defaultUploader.setMimeType(["image/png", "image/jpeg"]);
+            defaultUploader.attachChange(this, this.onChange.bind(this));
         },
 
         _checkForRobotics: function () {
@@ -117,21 +128,10 @@ sap.ui.define([
 
         readUserDataFromPortal: function () {
             const loginModel = this.getModel("loginModel");
-            const complete_url = window.location.href;
-            let url = "";
-            if (complete_url.includes("gatecons")) {
-                url = this.getOwnerComponent().getModel("appModel").getProperty("/pc7Url");
-            } else if (complete_url.includes("gate.rwe.com")) {
-                url = this.getOwnerComponent().getModel("appModel").getProperty("/pp7Url");
-            } else if (complete_url.includes("gateqa")) {
-                url = this.getOwnerComponent().getModel("appModel").getProperty("/pq7Url");
-            } else {
-                url = this.getOwnerComponent().getModel("appModel").getProperty("/pd7Url");
-            }
             const aData = $.ajax({
                 type: "GET",
                 contentType: "application/json",
-                url: url,
+                url: "/meldeapp/UserJson",
                 dataType: "json",
                 async: false,
                 success: function (data, textStatus, jqXHR) {
@@ -215,7 +215,6 @@ sap.ui.define([
             this.getModel("textsearchModel").setProperty("/buildingresults", buildingResults);
         },
 
-
         onLiveBuildingChangeInput: function (event) {
             const fullTextInputControl = this.getView().byId("fullsearchInput");
             let fullsearchText = event.getParameter("value").toLocaleLowerCase();
@@ -289,16 +288,6 @@ sap.ui.define([
             var notificationModel = this.getModel("notificationcreateModel");
             notificationModel.setProperty(event.getSource().mBindingInfos.value.binding.sPath, event.getSource().getValue());
         },
-
-        // onSelectBuilding: function (oEvent) {
-        //     this.getModel("notificationcreateModel").setProperty("/funcLocationId", oEvent.getSource().getSelectedKey());
-        //     var selectedFunLocationId = this.getView().byId("selectBuilding").getSelectedKey();
-        //     if (!selectedFunLocationId) {
-        //         this.getView().byId("selectBuilding").setValueState("Error");
-        //     } else {
-        //         this.getView().byId("selectBuilding").setValueState("Success");
-        //     }
-        // },
 
         onSuggestionItemSelected: function (event) {
             const fullsearchInputField = this.byId("fullsearchInput");
@@ -386,7 +375,7 @@ sap.ui.define([
                 .then(function (result) {
                     var notification = this.getModel("notificationcreateModel").getData();
                     var oData = this.getModel("notificationcreateModel").getData();
-                    var oDataModel = this.getModel("order");
+                    var oDataModel = sap.ui.getCore().getModel("order");
                     var oDialog = this.byId("BusyDialog");
                     var selectedFunLocationId = this.getModel("notificationcreateModel").getProperty("/funcLocationId");
                     var selectedCategory = this.byId("selectCategory").getSelectedKey();
@@ -414,14 +403,13 @@ sap.ui.define([
                                     return;
                                 }
                             }
-                            var allImages = this.getModel("notificationDIRModel").getProperty("/images");
-                            if (allImages.length != 0) {
+                            const allImages = this.getModel("notificationDIRModel").getProperty("/images");
+                            if (allImages.length !== 0) {
                                 this.uploadImagesToNotification(allImages, result.response.notificationId);
                             } else {
-                                oDialog.close();
                                 this._showSuccessDialog(result.response.notificationId);
-
                             }
+                            // oDialog.close();
                         }.bind(this),
 
                         error: function (error) {
@@ -433,6 +421,7 @@ sap.ui.define([
                                     return;
                                 }
                             }
+                            oDialog.close();
                         },
                     });
                     return;
@@ -440,20 +429,30 @@ sap.ui.define([
         },
 
         _fileToBase64String: function (file) {
-            var promise = new Promise(function (resolved, rejected) {
+            return new Promise(function (resolved, rejected) {
                 var reader = new FileReader();
                 var fixname = file.name;
                 var filename = fixname.substring(0, fixname.indexOf("."));
                 var extension = fixname.substring(fixname.indexOf(".") + 1);
+                // extension = (extension.toLowerCase() === "jpeg") ? "jpg" : extension.toLowerCase();
                 reader.onload = function (e) {
+                    // e.preventDefault();
+                    // e.stopPropagation();
                     var raw = e.target.result;
                     var base64String = raw.replace("data:image/png;base64,", "");
                     base64String = base64String.replace("data:image/jpeg;base64,", "");
                     var fileData = {
                         file: file,
-                        filename: filename,
+                        fileName: filename + "." + extension,
+                        size: file.size,
+                        type: file.type,
                         extension: extension,
-                        base64String: base64String
+                        base64String: base64String,
+                        attributes: [{
+                            title: "Dateigröße",
+                            text: file.size,
+                            active: false
+                        }],
                     }
                     resolved(fileData);
                 };
@@ -462,25 +461,28 @@ sap.ui.define([
                 };
                 reader.readAsDataURL(file);
             });
-            return promise;
         },
 
         uploadImagesToNotification: function (allImages, notificaitonId) {
             var that = this;
             var oDialog = this.getView().byId("BusyDialog");
-            var oDataModel = this.getModel("order");
+            var oDataModel = sap.ui.getCore().getModel("order");
             var mimeTypes = "";
             var base64Strings = "";
             var fileNames = "";
             for (var i = 0; i < allImages.length; i++) {
-                if (i == 0) {
-                    base64Strings = allImages[0].base64String;
-                    mimeTypes = allImages[0].extension;
-                    fileNames = allImages[0].filename;
+                const image = allImages[i];
+                const fixname = image.fileName;
+                const filename = fixname.substring(0, fixname.indexOf("."));
+
+                if (i === 0) {
+                    base64Strings = image.base64String;
+                    mimeTypes = image.extension;
+                    fileNames = filename;
                 } else {
-                    base64Strings = base64Strings + "|" + allImages[i].base64String;
-                    mimeTypes = mimeTypes + "|" + allImages[i].extension;
-                    fileNames = fileNames + "|" + allImages[i].filename;
+                    base64Strings = base64Strings + "|" + image.base64String;
+                    mimeTypes = mimeTypes + "|" + image.extension;
+                    fileNames = fileNames + "|" + filename;
                 }
             }
 
@@ -497,10 +499,11 @@ sap.ui.define([
                         data: sapDIR,
                         response: response
                     };
+                    this._showSuccessDialog(result.response.notificationId);
                     oDialog.close();
-                    that._showSuccessDialog(result.response.notificationId);
-                },
+                }.bind(this),
                 error: function (error) {
+                    oDialog.close();
                     Log.error(error);
                 }
             });
@@ -518,96 +521,75 @@ sap.ui.define([
         },
 
         onChange: function (oEvent) {
-            var that = this;
-            var oUploadCollection = oEvent.getSource();
-            var oCustomerHeaderToken = new UploadCollectionParameter({
+            const defaultUploadSet = this.byId("UploadSet").getDefaultFileUploader();
+            const oCustomerHeaderToken = new FileUploaderParameter({
                 name: "x-csrf-token",
                 value: "securityTokenFromModel"
             });
-            oUploadCollection.addHeaderParameter(oCustomerHeaderToken);
 
-            var files = oEvent.getParameter("files");
-            for (var i = 0; i < files.length; i++) {
-                this._fileToBase64String(files[i])
-                    .then(function (result) {
-                        var fileData = result
-                        var allImages = this.getModel("notificationDIRModel").getProperty("/images");
-                        allImages.push(fileData);
-                        this.getModel("notificationDIRModel").setProperty("/images", allImages);
-                        return;
-                    }.bind(this));
+            defaultUploadSet.addHeaderParameter(oCustomerHeaderToken);
+            oEvent.preventDefault();
+
+            const images = this.getModel("notificationDIRModel").getProperty("/images");
+            const files = oEvent.getParameter("files");
+            const promises = [];
+
+            if ((images.length + files.length) > 3) {
+                MessageBox.information("Es können max. 3 Bilder hochgeladen werden");
+                return;
             }
+
+            for (var i = 0; i < files.length; i++) {
+                promises.push(this._fileToBase64String(files[i]));
+            }
+            Promise.all(promises)
+                .then(function (result) {
+                    const images = this.getModel("notificationDIRModel").getProperty("/images");
+
+                    if (result.length > 0) {
+                        result.forEach(function (item) {
+                            images.unshift(item);
+                        });
+                    }
+                    this.getModel("notificationDIRModel").refresh();
+                }.bind(this));
         },
 
-        onBeforeUploadStarts: function (oEvent) {
-            var oCustomerHeaderSlug = new UploadCollectionParameter({
-                name: "slug",
-                value: oEvent.getParameter("fileName")
+        onFileDeleted: function (event) {
+            event.preventDefault();
+
+            const path = event.mParameters.item.oBindingContexts.notificationDIRModel.sPath;
+            const len = path.length;
+            const index = path.slice(len - 1);
+            const model = this.getModel("notificationDIRModel");
+            const data = model.getData();
+
+            MessageBox.confirm("Wollen Sie " + data.images[index].fileName + " wirklich entfernen?", {
+                icon: MessageBox.Icon.WARNING,
+                title: "Datei entfernen",
+                actions: [MessageBox.Action.YES, MessageBox.Action.CANCEL],
+                initialFocus: MessageBox.Action.CANCEL,
+                onClose: function (action) {
+                    if (action === MessageBox.Action.YES) {
+                        data.images.splice(index, 1);
+                        model.setData(data);
+                    }
+                    return;
+                }.bind(this)
             });
-            oEvent.getParameters().addHeaderParameter(oCustomerHeaderSlug);
-            setTimeout(function () {
-                MessageToast.show("Event beforeUploadStarts triggered");
-            }, 4000);
         },
 
-        onSelectChange: function (oEvent) {
-            var oUploadCollection = this.byId("UploadCollection");
-            oUploadCollection.setShowSeparators(oEvent.getParameters().selectedItem.getProperty("key"));
+        onBeforeItemAdded: function (event) {
+            const item = event.getParameter("item");
         },
 
-        onUploadComplete: function (oEvent) {
-            var oUploadCollection = this.byId("UploadCollection");
-            var oData = oUploadCollection.getModel().getData();
-
-            oData.items.unshift({
-                "documentId": Date.now().toString(), // generate Id,
-                "fileName": oEvent.getParameter("files")[0].fileName,
-                "mimeType": "",
-                "thumbnailUrl": "",
-                "url": "",
-                "attributes": [{
-                    "title": "Uploaded By",
-                    "text": "You",
-                    "active": false
-                }, {
-                    "title": "Uploaded On",
-                    "text": new Date().toLocaleDateString(),
-                    "active": false
-                }, {
-                    "title": "File Size",
-                    "text": "505000",
-                    "active": false
-                }],
-                "statuses": [{
-                    "title": "",
-                    "text": "",
-                    "state": "None"
-                }],
-                "markers": [{}],
-                "selected": false
-            });
-            this.getView().getModel().refresh();
-
-            // Sets the text to the label
-            //	this.byId("attachmentTitle").setText(this.getAttachmentTitleText());
-
-            // delay the success message for to notice onChange message
-            setTimeout(function () {
-                MessageToast.show("UploadComplete event triggered.");
-            }, 4000);
+        onAfterItemAdded: function (event) {
+            event.getParameter("item").setVisibleEdit(false);
+            this.byId("UploadSet").removeAllIncompleteItems();
         },
 
-        onFileDeleted: function (oEvent) {
-            this.deleteItemById(oEvent.getParameter("documentId"));
-        },
-
-        deleteItemById: function (sItemToDeleteId) {
-            var oData = this.byId("UploadCollection").getModel().getData();
-            var aItems = deepExtend({}, oData).items;
-        },
-
-        handleUrlPress: function (evt) {
-            URLHelper.redirect(this._getVal(evt), true);
+        onAfterItemRemoved: function (event) {
+            const item = event.getParameter("item");
         },
 
         onDialogClosed: function (oEvent) {

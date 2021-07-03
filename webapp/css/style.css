@@ -12,3 +12,7 @@
 .hintMissingBuildingsClass {
     color: #0563c1;
 }
+
+.sapMUSProgressBox {
+    visibility: hidden;
+}

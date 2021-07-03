@@ -1,12 +1,14 @@
 <mvc:View xmlns:mvc="sap.ui.core.mvc"
           xmlns="sap.m"
+          xmlns:upload="sap.m.upload"
           xmlns:f="sap.f"
           xmlns:card="sap.f.cards"
           xmlns:core="sap.ui.core"
           xmlns:l="sap.ui.layout"
           xmlns:form="sap.ui.layout.form"
           controllerName="meldeappui5.controller.CreateNotification"
-          displayBlock="true">
+          displayBlock="true"
+          xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1">
     <f:DynamicPage id="requestPage" showFooter="true">
         <f:content>
             <l:VerticalLayout class="sapUiSmallMargin sapUiLargeMarginEnd" width="100%">
@@ -86,71 +88,6 @@
                         </l:BlockLayoutRow>
                     </l:BlockLayout>
                 </l:VerticalLayout>
-
-
-                <!--
-                                <l:Grid containerQuery="true"
-                                        position="Center"
-                                        defaultSpan="XL5 L5 M12 S12">
-                                    <HBox>
-                                        <f:Card height="auto" width="auto">
-                                            <f:header>
-                                                <card:Header title="Kontaktdaten"
-                                                             iconSrc="sap-icon://business-card"/>
-                                            </f:header>
-                                            <f:content>
-                                                <form:SimpleForm
-                                                        minWidth="1400"
-                                                        maxContainerCols="2"
-                                                        editable="true"
-                                                        adjustLabelSpan="false"
-                                                        layout="GridLayout"
-                                                        labelSpanXL="6"
-                                                        labelSpanL="6"
-                                                        labelSpanM="12"
-                                                        labelSpanS="12"
-                                                        columnsL="1"
-                                                        columnsM="2">
-                                                    <form:content>
-                                                        <Label text="Vorname" wrapping="false"/>
-                                                        <Input value="{loginModel>/firstname}" editable="{appModel>/robotics}"/>
-                                                        <Label text="Name" wrapping="false"/>
-                                                        <Input value="{loginModel>/lastname}" editable="{appModel>/robotics}"/>
-                                                        <Label text="E-Mail" wrapping="false"/>
-                                                        <Input value="{loginModel>/email}" editable="{appModel>/robotics}"/>
-                                                        <Label text="Telefonnummer"/>
-                                                        <Input value="{loginModel>/telephone}" type="Number"/>
-                                                    </form:content>
-                                                </form:SimpleForm>
-                                            </f:content>
-                                        </f:Card>
-                                    </HBox>
-
-                                    <HBox>
-                                        <layoutData>
-                                            <l:GridData span="XL7 L7"/>
-                                        </layoutData>
-
-                                        <f:Card height="100%">
-                                            <f:header>
-                                                <card:Header title="Wichtige Hinweise"
-                                                             iconSrc="sap-icon://message-warning"/>
-                                            </f:header>
-                                            <f:content>
-                                                <VBox>
-                                                    <HBox class="sapUiSmallMargin">
-                                                        <core:HTML
-                                                                content='&lt;div class=&quot;content&quot;&gt;&lt;div&gt;{i18n>txt.hint.content.header}&lt;ul&gt;
-                                                        &lt;li class="sapUiSmallMarginBottom sapUiSmallMarginEnd"&gt;{i18n>ul.content1} &lt;a target=&quot;_blank&quot; href=&quot;https://itportal.rwe.com/sp&quot;&gt;Web_Link.&lt;/a&gt; &lt;/li&gt;
-                                                        &lt;li class="sapUiSmallMarginBottom sapUiSmallMarginEnd"&gt;{i18n>ul.content2}&lt;/li&gt;
-                                                        &lt;li class="sapUiSmallMarginEnd"&gt;{i18n>ul.content3} &lt;a target=&quot;_blank&quot; href=&quot;https://raumbuchungssystem.rwe.com/&quot;&gt;Raumbuchungssystem Gingco. &lt;/a&gt;&lt;/li&gt; &lt;/ul&gt; &lt;/div&gt;&lt;/div&gt;&lt;/div&gt;'/>
-                                                    </HBox>
-                                                </VBox>
-                                            </f:content>
-                                        </f:Card>
-                                    </HBox>
-                                </l:Grid>
-                -->
 
 
                 <l:Grid>
@@ -291,17 +228,68 @@
                     </l:dependents>
                     <VBox direction="Column">
                         <items>
-                            <UploadCollection id="UploadCollection" maximumFilenameLength="55" maximumFileSize="10"
-                                              multiple="true" sameFilenameAllowed="true"
-                                              fileType="jpg,png" instantUpload="false" change="onChange"
-                                              noDataText="Foto hinzufügen ( Max. 3)"
-                                              fileDeleted="onFileDeleted"
-                                              filenameLengthExceed="onFilenameLengthExceed"
-                                              fileSizeExceed="onFileSizeExceed" typeMissmatch="onTypeMissmatch"
-                                              noDataDescription="Dateien für Upload hierher ziehen oder Drucktaste &quot;Hinzufügen&quot; verwenden."
-                                              uploadComplete="onUploadComplete"
-                                              tooltip="Bitte fügen Sie - falls möglich - bis zu drei Fotos der Situation vor Ort bei."
-                                              beforeUploadStarts="onBeforeUploadStarts"/>
+                            <upload:UploadSet
+                                    id="UploadSet"
+                                    instantUpload="true"
+                                    fileSizeExceeded="onFileSizeExceeded"
+                                    fileTypeMismatch="onFileTypeMismatch"
+                                    maxFileSize="10"
+                                    maxFileNameLength="55"
+                                    terminationEnabled="false"
+                                    noDataText="Foto hinzufügen ( Max. 3)"
+                                    noDataDescription="Dateien für Upload hierher ziehen oder Drucktaste &quot;Hinzufügen&quot; verwenden."
+                                    uploadUrl="../../../../upload"
+                                    beforeItemAdded="onBeforeItemAdded"
+                                    afterItemAdded="onAfterItemAdded"
+                                    afterItemRemoved="onAfterItemRemoved"
+                                    items="{path: 'notificationDIRModel>/images', templateShareable: false}">
+                                <upload:items>
+                                    <upload:UploadSetItem
+                                            fileName="{notificationDIRModel>fileName}"
+                                            mediaType="{notificationDIRModel>type}"
+                                            enabledEdit="false"
+                                            visibleEdit="false"
+                                            removePressed="onFileDeleted">
+                                        <upload:attributes>
+                                            <ObjectAttribute title="Dateigröße"
+                                                             text="{notificationDIRModel>size} KB"
+                                                             active="false"/>
+                                        </upload:attributes>
+                                    </upload:UploadSetItem>
+                                </upload:items>
+                            </upload:UploadSet>
+
+                            <!--                            <UploadCollection id="UploadCollection"-->
+                            <!--                                              mode="None"-->
+                            <!--                                              maximumFilenameLength="55"-->
+                            <!--                                              maximumFileSize="10"-->
+                            <!--                                              multiple="true"-->
+                            <!--                                              sameFilenameAllowed="true"-->
+                            <!--                                              fileType="jpg,jpeg,png"-->
+                            <!--                                              instantUpload="false"-->
+                            <!--                                              change="onChange"-->
+                            <!--                                              noDataText="Foto hinzufügen ( Max. 3)"-->
+                            <!--                                              selectionChange="onSelectionChange"-->
+                            <!--                                              filenameLengthExceed="onFilenameLengthExceed"-->
+                            <!--                                              fileSizeExceed="onFileSizeExceed"-->
+                            <!--                                              typeMissmatch="onTypeMissmatch"-->
+                            <!--                                              noDataDescription="Dateien für Upload hierher ziehen oder Drucktaste &quot;Hinzufügen&quot; verwenden."-->
+                            <!--                                              uploadComplete="onUploadComplete"-->
+                            <!--                                              tooltip="Bitte fügen Sie - falls möglich - bis zu drei Fotos der Situation vor Ort bei."-->
+                            <!--                                              beforeUploadStarts="onBeforeUploadStarts"-->
+                            <!--                                              items="{path: 'notificationDIRModel>/images', templateShareable: false}">-->
+                            <!--                                <UploadCollectionItem-->
+                            <!--                                        fileName="{fileName}"-->
+                            <!--                                        mimeType="{file/mimeType}"-->
+                            <!--                                        enableEdit="false"-->
+                            <!--                                        enableDelete="true"-->
+                            <!--                                        visibleDelete="true"-->
+                            <!--                                        visibleEdit="false"-->
+                            <!--                                        deletePress="onDeletePress"-->
+                            <!--                                        selected="false">-->
+                            <!--                                </UploadCollectionItem>-->
+                            <!--                            </UploadCollection>-->
+
                             <CheckBox selected="{notificationcreateModel>/subscribe}"
                                       text="Ich möchte über den weiteren Verlauf per Mail informiert werden">
                                 <layoutData>
