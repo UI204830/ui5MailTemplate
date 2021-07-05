@@ -2,8 +2,11 @@
 sap.ui.define([
     "meldeappui5/controller/BaseController",
     "meldeappui5/util/Database",
+    "meldeappui5/util/formatter",
     "sap/base/Log",
     "sap/m/library",
+    "sap/ui/core/dnd/DragInfo",
+    "sap/ui/core/dnd/DropInfo",
     "sap/ui/model/json/JSONModel",
     "sap/ui/model/odata/v2/ODataModel",
     "sap/m/MessageToast",
@@ -16,8 +19,11 @@ sap.ui.define([
 ], function (
     BaseController,
     Database,
+    formatter,
     Log,
     mobileLibrary,
+    DragInfo,
+    DropInfo,
     JSONModel,
     ODataModel,
     MessageToast,
@@ -37,6 +43,8 @@ sap.ui.define([
 
         _bSelectedFromSuggestionList: false,
         _database: {},
+        _preventDuplicateFilenameNumber: 0,
+        formatter: formatter,
 
         onInit: function () {
             this._checkForRobotics();
@@ -105,9 +113,40 @@ sap.ui.define([
             const uploadSet = this.byId("UploadSet");
             const defaultUploader = uploadSet.getDefaultFileUploader();
             defaultUploader.setMultiple(true);
+            defaultUploader.setIconOnly(true);
+            defaultUploader.setIcon("sap-icon://add");
             defaultUploader.setFileType(["jpg", "png", "jpeg"]);
             defaultUploader.setMimeType(["image/png", "image/jpeg"]);
+            defaultUploader.setMaximumFileSize(10);
+            defaultUploader.setMaximumFilenameLength(55);
+            defaultUploader.setSameFilenameAllowed(true);
+            defaultUploader.setUploadOnChange(false);
+            defaultUploader.setSendXHR(true);
+            defaultUploader.attachFileSizeExceed(this, this.onFileSizeExceeded.bind(this));
+            defaultUploader.attachTypeMissmatch(this, this.onFileTypeMismatch.bind(this));
+            defaultUploader.attachFilenameLengthExceed(this, this.onFileNameLengthExceeded.bind(this));
             defaultUploader.attachChange(this, this.onChange.bind(this));
+            this.attachDropEvents();
+        },
+
+
+        attachDropEvents: function () {
+            document.addEventListener("drop", function (event) {
+                if (event.target.classList.contains("sapMUCDragDropOverlay")) {
+                    const uploadSet = this.byId("UploadSet");
+                    const lenFiles = event.dataTransfer.files.length;
+                    const images = this.getModel("notificationDIRModel").getProperty("/images");
+                    const lenImages = images.length;
+
+                    if ((lenFiles + lenImages) > 3) {
+                        MessageBox.information("Es können max. 3 Bilder hochgeladen werden");
+                        uploadSet.removeAllIncompleteItems();
+                        return;
+                    } else {
+                        uploadSet.upload();
+                    }
+                }
+            }.bind(this));
         },
 
         _checkForRobotics: function () {
@@ -313,7 +352,6 @@ sap.ui.define([
         },
 
         onValueHelpDialogClose: function (oEvent) {
-            // reset the filter
             var oBinding = oEvent.getSource().getBinding("items");
             oBinding.filter([]);
 
@@ -429,15 +467,16 @@ sap.ui.define([
         },
 
         _fileToBase64String: function (file) {
+            const images = this.getModel("notificationDIRModel").getProperty("/images");
             return new Promise(function (resolved, rejected) {
-                var reader = new FileReader();
-                var fixname = file.name;
-                var filename = fixname.substring(0, fixname.indexOf("."));
-                var extension = fixname.substring(fixname.indexOf(".") + 1);
-                // extension = (extension.toLowerCase() === "jpeg") ? "jpg" : extension.toLowerCase();
+                const reader = new FileReader();
+                const fixname = file.name;
+                let filename = fixname.substring(0, fixname.indexOf("."));
+                const extension = fixname.substring(fixname.indexOf(".") + 1);
+                const isDuplicated = this._checkNameDuplicate(filename, extension);
+
+                filename = isDuplicated ? filename + this._preventDuplicateFilenameNumber : filename;
                 reader.onload = function (e) {
-                    // e.preventDefault();
-                    // e.stopPropagation();
                     var raw = e.target.result;
                     var base64String = raw.replace("data:image/png;base64,", "");
                     base64String = base64String.replace("data:image/jpeg;base64,", "");
@@ -460,7 +499,7 @@ sap.ui.define([
                     rejected("error");
                 };
                 reader.readAsDataURL(file);
-            });
+            }.bind(this));
         },
 
         uploadImagesToNotification: function (allImages, notificaitonId) {
@@ -472,7 +511,7 @@ sap.ui.define([
             var fileNames = "";
             for (var i = 0; i < allImages.length; i++) {
                 const image = allImages[i];
-                const fixname = image.fileName;
+                const fixname = image.fileName || "image" + (i + 1);
                 const filename = fixname.substring(0, fixname.indexOf("."));
 
                 if (i === 0) {
@@ -509,6 +548,48 @@ sap.ui.define([
             });
         },
 
+        onFileSizeExceeded: function (event) {
+            const oUploadSet = this.byId("UploadSet");
+
+            MessageBox.information("Eine Datei darf höchstens 10 MB groß sein.", {
+                icon: MessageBox.Icon.INFORMATION,
+                title: "Dateigröße überschritten",
+                actions: [MessageBox.Action.OK],
+                onClose: function () {
+                    oUploadSet.removeAllIncompleteItems();
+                    return;
+                }
+            });
+        },
+
+        onFileTypeMismatch: function (event) {
+            const oUploadSet = this.byId("UploadSet");
+
+            MessageBox.information("Mögliche Dateitypen sind: image/png und image/jpeg.", {
+                icon: MessageBox.Icon.INFORMATION,
+                title: "Falscher Dateityp",
+                actions: [MessageBox.Action.OK],
+                onClose: function () {
+                    oUploadSet.removeAllIncompleteItems();
+                    return;
+                }
+            });
+        },
+
+        onFileNameLengthExceeded: function (event) {
+            const oUploadSet = this.byId("UploadSet");
+
+            MessageBox.information("Der Dateiname darf max. 55 Zeichen lang sein.", {
+                icon: MessageBox.Icon.INFORMATION,
+                title: "Dateiname zu lang",
+                actions: [MessageBox.Action.OK],
+                onClose: function () {
+                    oUploadSet.removeAllIncompleteItems();
+                    return;
+                }
+            });
+        },
+
         _showSuccessDialog: function (data) {
             MessageBox.success("Vielen Dank für Ihre Meldung. Ihre Meldung wurde angelegt unter der Nummer: " + data, {
                 actions: ["Fertig"],
@@ -520,39 +601,41 @@ sap.ui.define([
             });
         },
 
-        onChange: function (oEvent) {
-            const defaultUploadSet = this.byId("UploadSet").getDefaultFileUploader();
-            const oCustomerHeaderToken = new FileUploaderParameter({
-                name: "x-csrf-token",
-                value: "securityTokenFromModel"
+        onBeforeUploadStarts: function (event) {
+            const uploadSet = event.getSource();
+            const defaultUs = uploadSet.getDefaultFileUploader();
+            const oCustomerHeaderSlug = new FileUploaderParameter({
+                name: "slug",
+                value: event.getParameter("item").getFileName()
             });
+            defaultUs.addHeaderParameter(oCustomerHeaderSlug);
+        },
 
-            defaultUploadSet.addHeaderParameter(oCustomerHeaderToken);
-            oEvent.preventDefault();
+        onUploadCompleted: function (event) {
+            const uploadSet = this.byId("UploadSet");
+            const uploadSetModel = uploadSet.getModel("notificationDIRModel");
+            const images = uploadSetModel.getProperty("/images");
+            const file = event.getParameter("item").getFileObject();
 
+            this._fileToBase64String(file)
+                .then(function (result) {
+                    images.unshift(result);
+                    uploadSetModel.refresh();
+                    uploadSet.removeAllIncompleteItems();
+                }.bind(this));
+        },
+
+        onChange: function (oEvent) {
+            const uploadSet = this.byId("UploadSet");
             const images = this.getModel("notificationDIRModel").getProperty("/images");
             const files = oEvent.getParameter("files");
-            const promises = [];
 
             if ((images.length + files.length) > 3) {
                 MessageBox.information("Es können max. 3 Bilder hochgeladen werden");
+                uploadSet.removeAllIncompleteItems();
                 return;
             }
-
-            for (var i = 0; i < files.length; i++) {
-                promises.push(this._fileToBase64String(files[i]));
-            }
-            Promise.all(promises)
-                .then(function (result) {
-                    const images = this.getModel("notificationDIRModel").getProperty("/images");
-
-                    if (result.length > 0) {
-                        result.forEach(function (item) {
-                            images.unshift(item);
-                        });
-                    }
-                    this.getModel("notificationDIRModel").refresh();
-                }.bind(this));
+            uploadSet.upload();
         },
 
         onFileDeleted: function (event) {
@@ -580,16 +663,35 @@ sap.ui.define([
         },
 
         onBeforeItemAdded: function (event) {
-            const item = event.getParameter("item");
+            // const images = this.getModel("notificationDIRModel").getProperty("/images");
+            // const item = event.getParameter("item");
+            // const aFileName = [];
+            //
+            // images.forEach(function (image) {
+            //     aFileName.push(image.fileName);
+            // });
+            //
+            // if (aFileName.indexOf(item.getFileName()) !== -1) {
+            //     const aSplittedFileName = item.getFileName().split(".");
+            //     const lastIndexValue = aSplittedFileName[0].charCodeAt(aSplittedFileName[0].length);
+            //     const parsedIndex = isNaN(lastIndexValue) ? 1 : lastIndexValue + 1;
+            //     const renamedValue = aSplittedFileName[0] + "" + parsedIndex.toString() + "." + aSplittedFileName[1];
+            //     console.log(renamedValue);
+            //     item.setFileName(renamedValue);
+            // }
         },
 
         onAfterItemAdded: function (event) {
             event.getParameter("item").setVisibleEdit(false);
-            this.byId("UploadSet").removeAllIncompleteItems();
+            // this.byId("UploadSet").removeAllIncompleteItems();
         },
 
         onAfterItemRemoved: function (event) {
             const item = event.getParameter("item");
+        },
+
+        onAfterItemEdited: function (event) {
+            console.log(event);
         },
 
         onDialogClosed: function (oEvent) {
@@ -598,6 +700,23 @@ sap.ui.define([
             } else if (toasMsg) {
                 MessageToast.show(toasMsg);
             }
+        },
+
+        _checkNameDuplicate: function (fileName, fileType) {
+            const images = this.getModel("notificationDIRModel").getProperty("/images");
+            const fullFileName = fileName + "." + fileType;
+            const aFileName = [];
+
+            images.forEach(function (image) {
+                aFileName.push(image.fileName);
+            });
+
+            if (aFileName.indexOf(fullFileName) !== -1) {
+                this._preventDuplicateFilenameNumber++;
+                return true;
+            }
+            return false;
         }
     });
-});
+})
+;

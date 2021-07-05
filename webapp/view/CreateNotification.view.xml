@@ -2,13 +2,12 @@
           xmlns="sap.m"
           xmlns:upload="sap.m.upload"
           xmlns:f="sap.f"
-          xmlns:card="sap.f.cards"
           xmlns:core="sap.ui.core"
+          xmlns:dnd="sap.ui.core.dnd"
           xmlns:l="sap.ui.layout"
           xmlns:form="sap.ui.layout.form"
           controllerName="meldeappui5.controller.CreateNotification"
-          displayBlock="true"
-          xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1">
+          displayBlock="true">
     <f:DynamicPage id="requestPage" showFooter="true">
         <f:content>
             <l:VerticalLayout class="sapUiSmallMargin sapUiLargeMarginEnd" width="100%">
@@ -230,65 +229,37 @@
                         <items>
                             <upload:UploadSet
                                     id="UploadSet"
-                                    instantUpload="true"
-                                    fileSizeExceeded="onFileSizeExceeded"
-                                    fileTypeMismatch="onFileTypeMismatch"
-                                    maxFileSize="10"
-                                    maxFileNameLength="55"
+                                    instantUpload="false"
+                                    uploadEnabled="true"
                                     terminationEnabled="false"
+                                    maxFileNameLength="55"
                                     noDataText="Foto hinzufügen ( Max. 3)"
-                                    noDataDescription="Dateien für Upload hierher ziehen oder Drucktaste &quot;Hinzufügen&quot; verwenden."
-                                    uploadUrl="../../../../upload"
+                                    noDataDescription="Dateien für Upload hierher ziehen oder Drucktaste &quot;+&quot; verwenden."
+                                    beforeUploadStarts="onBeforeUploadStarts"
+                                    uploadCompleted="onUploadCompleted"
                                     beforeItemAdded="onBeforeItemAdded"
                                     afterItemAdded="onAfterItemAdded"
                                     afterItemRemoved="onAfterItemRemoved"
+                                    afterItemEdited="onAfterItemEdited"
+                                    uploadUrl="../../../../upload"
                                     items="{path: 'notificationDIRModel>/images', templateShareable: false}">
                                 <upload:items>
                                     <upload:UploadSetItem
                                             fileName="{notificationDIRModel>fileName}"
                                             mediaType="{notificationDIRModel>type}"
-                                            enabledEdit="false"
-                                            visibleEdit="false"
+                                            enabledEdit="true"
+                                            visibleEdit="true"
                                             removePressed="onFileDeleted">
                                         <upload:attributes>
                                             <ObjectAttribute title="Dateigröße"
-                                                             text="{notificationDIRModel>size} KB"
+                                                             text="{path: 'notificationDIRModel>size',
+                                                                    formatter: '.formatter.formatAttribute'}"
                                                              active="false"/>
                                         </upload:attributes>
                                     </upload:UploadSetItem>
                                 </upload:items>
                             </upload:UploadSet>
 
-                            <!--                            <UploadCollection id="UploadCollection"-->
-                            <!--                                              mode="None"-->
-                            <!--                                              maximumFilenameLength="55"-->
-                            <!--                                              maximumFileSize="10"-->
-                            <!--                                              multiple="true"-->
-                            <!--                                              sameFilenameAllowed="true"-->
-                            <!--                                              fileType="jpg,jpeg,png"-->
-                            <!--                                              instantUpload="false"-->
-                            <!--                                              change="onChange"-->
-                            <!--                                              noDataText="Foto hinzufügen ( Max. 3)"-->
-                            <!--                                              selectionChange="onSelectionChange"-->
-                            <!--                                              filenameLengthExceed="onFilenameLengthExceed"-->
-                            <!--                                              fileSizeExceed="onFileSizeExceed"-->
-                            <!--                                              typeMissmatch="onTypeMissmatch"-->
-                            <!--                                              noDataDescription="Dateien für Upload hierher ziehen oder Drucktaste &quot;Hinzufügen&quot; verwenden."-->
-                            <!--                                              uploadComplete="onUploadComplete"-->
-                            <!--                                              tooltip="Bitte fügen Sie - falls möglich - bis zu drei Fotos der Situation vor Ort bei."-->
-                            <!--                                              beforeUploadStarts="onBeforeUploadStarts"-->
-                            <!--                                              items="{path: 'notificationDIRModel>/images', templateShareable: false}">-->
-                            <!--                                <UploadCollectionItem-->
-                            <!--                                        fileName="{fileName}"-->
-                            <!--                                        mimeType="{file/mimeType}"-->
-                            <!--                                        enableEdit="false"-->
-                            <!--                                        enableDelete="true"-->
-                            <!--                                        visibleDelete="true"-->
-                            <!--                                        visibleEdit="false"-->
-                            <!--                                        deletePress="onDeletePress"-->
-                            <!--                                        selected="false">-->
-                            <!--                                </UploadCollectionItem>-->
-                            <!--                            </UploadCollection>-->
 
                             <CheckBox selected="{notificationcreateModel>/subscribe}"
                                       text="Ich möchte über den weiteren Verlauf per Mail informiert werden">

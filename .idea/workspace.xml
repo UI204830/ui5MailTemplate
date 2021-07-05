@@ -4,9 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="669afe59-bfc6-456b-8ed2-86af1bad91ca" name="Default Changelist" comment="">
+    <list default="true" id="669afe59-bfc6-456b-8ed2-86af1bad91ca" name="Default Changelist" comment="fixed buildingSet model size limit&#10;made app visible in safari browser over Web@Work&#10;set responsive layout for different device sizes&#10;cleanup code">
+      <change afterPath="$PROJECT_DIR$/webapp/util/formatter.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/copy-sources.js" beforeDir="false" afterPath="$PROJECT_DIR$/build/copy-sources.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/webapp/controller/CreateNotification.controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/webapp/controller/CreateNotification.controller.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/webapp/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/webapp/css/style.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/webapp/view/CreateNotification.view.xml" beforeDir="false" afterPath="$PROJECT_DIR$/webapp/view/CreateNotification.view.xml" afterDir="false" />
@@ -60,7 +60,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/webapp/model" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/webapp/util" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="SDKs" />
     <property name="project.structure.proportion" value="0.0" />
@@ -71,6 +71,7 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Workspace\app.meldeapp.ui5web\webapp\util" />
       <recent name="C:\Workspace\app.meldeapp.ui5web\webapp\model" />
       <recent name="C:\Workspace\app.meldeapp.ui5web\webapp\controller" />
       <recent name="C:\Workspace\app.meldeapp.ui5web\webapp\view" />
@@ -130,9 +131,9 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="npm.start:meldeapp" />
-        <item itemvalue="npm.build:WebContent" />
         <item itemvalue="npm.build:ui5:debug" />
+        <item itemvalue="npm.build:WebContent" />
+        <item itemvalue="npm.start:meldeapp" />
         <item itemvalue="npm.build:ui5:exclude:debug" />
         <item itemvalue="npm.test" />
       </list>
@@ -162,7 +163,9 @@
       <workItem from="1624704152576" duration="597000" />
       <workItem from="1624741676820" duration="460000" />
       <workItem from="1624754595579" duration="76752000" />
-      <workItem from="1625130128049" duration="56651000" />
+      <workItem from="1625130128049" duration="76067000" />
+      <workItem from="1625313866840" duration="11111000" />
+      <workItem from="1625401269318" duration="43010000" />
     </task>
     <task id="LOCAL-00001" summary="initial commit">
       <created>1623317442315</created>
@@ -234,7 +237,14 @@
       <option name="project" value="LOCAL" />
       <updated>1625045961185</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="fixed buildingSet model size limit&#10;made app visible in safari browser over Web@Work&#10;set responsive layout for different device sizes&#10;cleanup code">
+      <created>1625276845115</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1625276845115</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -251,7 +261,7 @@
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="master" />
+                        <option value="develop" />
                       </list>
                     </value>
                   </entry>
