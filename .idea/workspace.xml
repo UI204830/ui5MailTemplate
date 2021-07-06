@@ -4,12 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="669afe59-bfc6-456b-8ed2-86af1bad91ca" name="Default Changelist" comment="fixed buildingSet model size limit&#10;made app visible in safari browser over Web@Work&#10;set responsive layout for different device sizes&#10;cleanup code">
-      <change afterPath="$PROJECT_DIR$/webapp/util/formatter.js" afterDir="false" />
+    <list default="true" id="669afe59-bfc6-456b-8ed2-86af1bad91ca" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/webapp/controller/CreateNotification.controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/webapp/controller/CreateNotification.controller.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webapp/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/webapp/css/style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webapp/view/CreateNotification.view.xml" beforeDir="false" afterPath="$PROJECT_DIR$/webapp/view/CreateNotification.view.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -165,7 +162,8 @@
       <workItem from="1624754595579" duration="76752000" />
       <workItem from="1625130128049" duration="76067000" />
       <workItem from="1625313866840" duration="11111000" />
-      <workItem from="1625401269318" duration="43010000" />
+      <workItem from="1625401269318" duration="43267000" />
+      <workItem from="1625477837330" duration="4480000" />
     </task>
     <task id="LOCAL-00001" summary="initial commit">
       <created>1623317442315</created>
@@ -244,7 +242,14 @@
       <option name="project" value="LOCAL" />
       <updated>1625276845115</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="fixed image upload on mobile device,&#10;set upload amount to max. 3,">
+      <created>1625470241650</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1625470241650</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -281,6 +286,7 @@
     <MESSAGE value="added dist to .gitignore" />
     <MESSAGE value="bugfixes and cleanup code" />
     <MESSAGE value="fixed buildingSet model size limit&#10;made app visible in safari browser over Web@Work&#10;set responsive layout for different device sizes&#10;cleanup code" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixed buildingSet model size limit&#10;made app visible in safari browser over Web@Work&#10;set responsive layout for different device sizes&#10;cleanup code" />
+    <MESSAGE value="fixed image upload on mobile device,&#10;set upload amount to max. 3," />
+    <option name="LAST_COMMIT_MESSAGE" value="fixed image upload on mobile device,&#10;set upload amount to max. 3," />
   </component>
 </project>

@@ -158,7 +158,7 @@ sap.ui.define([
                 var params = pieces[1].split("&");
                 $.each(params, function (key, value) {
                     var param_value = value.split("=");
-                    if (value.includes("Robotics=true")) {
+                    if (value.includes("robotics=true")) {
                         that.getModel("appModel").setProperty("/robotics", true);
                     }
                 });
