@@ -5,12 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="669afe59-bfc6-456b-8ed2-86af1bad91ca" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/webapp/controller/EmailTemplate.controller.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/webapp/view/EmailTemplate.view.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webapp/controller/CreateNotification.controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/webapp/controller/CreateNotification.controller.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webapp/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/webapp/manifest.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webapp/view/CreateNotification.view.xml" beforeDir="false" afterPath="$PROJECT_DIR$/webapp/view/CreateNotification.view.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,7 +36,7 @@
     </excluded-from-favorite>
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="feature/initialPush" />
+        <entry key="$PROJECT_DIR$" value="develop" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -57,9 +53,9 @@
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/webapp/view/CreateNotification.view.xml" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/webapp/controller/CreateNotification.controller.js" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/webapp/emailTemplate.html" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/webapp/index.html" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/webapp/manifest.json" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/webapp/emailTemplate.html" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="ProjectId" id="1tfCvP8xscUonRY2YY7CjZ0cUtU" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -147,9 +143,9 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="npm.build:ui5:debug" />
         <item itemvalue="npm.build:WebContent" />
         <item itemvalue="npm.start:meldeapp" />
-        <item itemvalue="npm.build:ui5:debug" />
         <item itemvalue="npm.build:ui5:exclude:debug" />
         <item itemvalue="npm.test" />
       </list>
