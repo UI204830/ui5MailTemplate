@@ -716,6 +716,10 @@ sap.ui.define([
                 return true;
             }
             return false;
+        },
+
+        onNavToEmailTemplate: function (event) {
+            this.getOwnerComponent().getRouter().navTo("EmailTemplate");
         }
     });
 })

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>Meldeapp</title>
+</head>
+<body>
+<div>Haben Sie ein Anliegen zu Leistungen im Gebäude? <BR>Bitte füllen Sie für eine automatisierte Erfassung die
+    folgenden Zeilen aus.
+    <BR>!Achtung keine Pflichtzeilen (*) löschen, da sonst Ihre Mail nicht verarbeitet werden kann! <BR> <BR></div>
+
+    <form action="/meldeappui5/emailTemplate" method="post" name="emailForm" target="_blank">
+        <Input id="idFirstname" name="firstname" value="{/firstname}"/>
+        <Input id="idLastname" name="lastname" value="{/lastname}"/>
+        <Input id="idEmail" name="email" value="{/email}"/>
+        <Input id="idTelephone" name="telephone" value="{/telephone}"/>
+        <Input id="idCategory" name="category" value="{/category}"/>
+        <Input id="idBuildingName" name="buildingName" value="{/buildingName}"/>
+        <Input id="idStreet" name="street" value="{/street}"/>
+        <Input id="idHouseNumber" name="houseNumber" value="{/houseNumber}"/>
+        <Input id="idPostalCode" name="postalCode" value="{/postalCode}"/>
+        <Input id="idCity" name="city" value="{/city}"/>
+        <Input id="idFuncLocationId" name="funcLocationId" value="{/funcLocationId}"/>
+        <Input id="idFloor" name="floor" value="{/floor}"/>
+        <Input id="idRoom" name="room" value="{/room}"/>
+        <Input id="idShortText" name="shortText" value="{/shortText}"/>
+        <Input id="idLongText" name="longText" value="{/longText}"/>
+    </form>
+</body>
+</html>

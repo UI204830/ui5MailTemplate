@@ -3,7 +3,6 @@
           xmlns:upload="sap.m.upload"
           xmlns:f="sap.f"
           xmlns:core="sap.ui.core"
-          xmlns:dnd="sap.ui.core.dnd"
           xmlns:l="sap.ui.layout"
           xmlns:form="sap.ui.layout.form"
           controllerName="meldeappui5.controller.CreateNotification"
@@ -286,6 +285,9 @@
                 <Button text="Meldung erstellen"
                         press="onCreateNotification"
                         type="Emphasized"/>
+                <Button text="Email Vorlage"
+                        press="onNavToEmailTemplate"
+                        visible="true"/>
             </OverflowToolbar>
         </f:footer>
     </f:DynamicPage>

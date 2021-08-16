@@ -151,11 +151,20 @@
           "pattern": "",
           "name": "CreateNotification",
           "target": "CreateNotification"
+        },
+        {
+          "pattern": "EmailTemplate",
+          "name": "EmailTemplate",
+          "target": "EmailTemplate"
         }
       ],
       "targets": {
         "CreateNotification": {
           "viewName": "CreateNotification",
+          "viewLevel": 1
+        },
+        "EmailTemplate": {
+          "viewName": "EmailTemplate",
           "viewLevel": 1
         }
       }
