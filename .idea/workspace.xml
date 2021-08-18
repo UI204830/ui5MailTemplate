@@ -6,6 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="669afe59-bfc6-456b-8ed2-86af1bad91ca" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/copy-sources.js" beforeDir="false" afterPath="$PROJECT_DIR$/build/copy-sources.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webapp/emailTemplate.html" beforeDir="false" afterPath="$PROJECT_DIR$/webapp/emailTemplate.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,8 +54,8 @@
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/webapp/view/CreateNotification.view.xml" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/webapp/controller/CreateNotification.controller.js" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/webapp/index.html" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/webapp/emailTemplate.html" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/webapp/index.html" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/webapp/manifest.json" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="ProjectId" id="1tfCvP8xscUonRY2YY7CjZ0cUtU" />
@@ -76,7 +78,7 @@
     <property name="project.structure.last.edited" value="SDKs" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="settings.editor.selected.configurable" value="http.proxy" />
     <property name="ts.external.directory.path" value="C:\Users\ui204830\programs\ideaIU-2019.3.3.win\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
@@ -142,8 +144,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="npm.build:WebContent" />
         <item itemvalue="npm.build:ui5:debug" />
+        <item itemvalue="npm.build:WebContent" />
         <item itemvalue="npm.start:meldeapp" />
         <item itemvalue="npm.build:ui5:exclude:debug" />
         <item itemvalue="npm.test" />
@@ -182,6 +184,7 @@
       <workItem from="1626099110277" duration="957000" />
       <workItem from="1626238019533" duration="14979000" />
       <workItem from="1629099694695" duration="2289000" />
+      <workItem from="1629256752411" duration="765000" />
     </task>
     <task id="LOCAL-00001" summary="initial commit">
       <created>1623317442315</created>
@@ -314,5 +317,9 @@
     <MESSAGE value="fixed image upload on mobile device,&#10;set upload amount to max. 3," />
     <MESSAGE value="fixed robotics parameter request" />
     <option name="LAST_COMMIT_MESSAGE" value="fixed robotics parameter request" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>
