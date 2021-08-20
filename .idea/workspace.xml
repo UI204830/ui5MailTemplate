@@ -5,7 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="669afe59-bfc6-456b-8ed2-86af1bad91ca" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/webapp/model/EmailTemplateModel.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webapp/controller/EmailTemplate.controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/webapp/controller/EmailTemplate.controller.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webapp/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/webapp/manifest.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webapp/view/EmailTemplate.view.xml" beforeDir="false" afterPath="$PROJECT_DIR$/webapp/view/EmailTemplate.view.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,7 +39,7 @@
     </excluded-from-favorite>
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="develop" />
+        <entry key="$PROJECT_DIR$" value="feature/qrCodeEmailTemplate" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -71,7 +75,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/webapp/controller" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/webapp/model" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="SDKs" />
     <property name="project.structure.proportion" value="0.0" />
@@ -82,10 +86,10 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Workspace\app.meldeapp.ui5web\webapp\model" />
       <recent name="C:\Workspace\app.meldeapp.ui5web\webapp\controller" />
       <recent name="C:\Workspace\app.meldeapp.ui5web\webapp\view" />
       <recent name="C:\Workspace\app.meldeapp.ui5web\webapp\util" />
-      <recent name="C:\Workspace\app.meldeapp.ui5web\webapp\model" />
       <recent name="C:\Workspace\app.meldeapp.ui5web" />
     </key>
   </component>
@@ -153,9 +157,9 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="npm.start:meldeapp" />
         <item itemvalue="npm.build:ui5:debug" />
         <item itemvalue="npm.build:WebContent" />
-        <item itemvalue="npm.start:meldeapp" />
         <item itemvalue="npm.build:ui5:exclude:debug" />
         <item itemvalue="npm.test" />
       </list>
@@ -194,7 +198,7 @@
       <workItem from="1626238019533" duration="14979000" />
       <workItem from="1629099694695" duration="2289000" />
       <workItem from="1629256752411" duration="765000" />
-      <workItem from="1629461048984" duration="1881000" />
+      <workItem from="1629461048984" duration="9756000" />
     </task>
     <task id="LOCAL-00001" summary="initial commit">
       <created>1623317442315</created>
@@ -294,7 +298,14 @@
       <option name="project" value="LOCAL" />
       <updated>1629462163913</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="fixed robotics parameter request">
+      <created>1629466534660</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1629466534660</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

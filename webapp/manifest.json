@@ -44,6 +44,10 @@
       "notificationDIRService": {
         "uri": "model/NotificationDIRModel.json",
         "type": "JSON"
+      },
+      "emailTemplateService": {
+        "uri": "model/EmailTemplateModel.json",
+        "type": "JSON"
       }
     }
   },
@@ -119,6 +123,11 @@
         "dataSource": "notificationDIRService",
         "preload": true
       },
+      "emailTemplateModel": {
+        "type": "sap.ui.model.json.JSONModel",
+        "dataSource": "emailTemplateService",
+        "preload": true
+      },
       "": {
         "dataSource": "mainService"
       }
@@ -148,12 +157,12 @@
           "target": "CreateNotification"
         },
         {
-          "pattern": "",
+          "pattern": "CreateNotification",
           "name": "CreateNotification",
           "target": "CreateNotification"
         },
         {
-          "pattern": "EmailTemplate",
+          "pattern": "",
           "name": "EmailTemplate",
           "target": "EmailTemplate"
         }
