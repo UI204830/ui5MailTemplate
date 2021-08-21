@@ -1,0 +1,20 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+    <Dialog title="{i18n>title.sap-messages}">
+        <content>
+            <List id="lis.backendMessages" items="{backendMessageModel>/backendMessages}">
+                <items>
+                    <StandardListItem icon="{backendMessageModel>_icon}" title="{backendMessageModel>message}" />
+                    <!-- <CustomListItem>
+                        <HBox>
+                            <core:Icon src="{backendMessageModel>_icon}" class="sapUiSmallMarginBegin sapUiSmallMarginTopBottom" color="{backendMessageModel>_iconClass}" />
+                            <Text text="{backendMessageModel>message}" />
+                        </HBox>
+                    </CustomListItem> -->
+                </items>
+            </List>
+        </content>
+        <beginButton>
+            <Button id="btn.closeBackendMessages" text="{i18n>close}" press="onButtonCloseBackendMessagesPress"/>
+        </beginButton>
+    </Dialog>
+</core:FragmentDefinition>

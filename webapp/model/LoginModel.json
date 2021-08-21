@@ -1,0 +1,44 @@
+{
+  "username": "",
+  "password": "",
+  "firstname": "",
+  "lastname": "",
+  "email": "",
+  "telephone": "",
+  "language": "",
+  "systems": [
+    {
+      "serverUrl": "https://logonpd7.gatedev.rwe.com/meldeapp/ProxyServ?servername=rwemk2aa40.rwe.com:44340&servicename=",
+      "sapSystem": "http://rwemk2aa40.rwe.com/sap/opu/odata/RWER/PMGW_MFM_MELDE_SRV/",
+      "sapSystemId": "RK1",
+      "description": "SAP RK1 System (gateportal-dev)",
+      "portalSystem": "https://portal.gatedev.rwe.com/logon/ads",
+      "gatewaySystem": "http://rwemk2aa40.rwe.com/rwek/logon/ads"
+    },
+    {
+      "serverUrl": "https://logonpc7.gatecons.rwe.com/meldeapp/ProxyServ?servername=rwemk2aa40.rwe.com:44340&servicename=",
+      "sapSystem": "http://rwemk2aa40.rwe.com/sap/opu/odata/RWER/PMGW_MFM_MELDE_SRV/",
+      "sapSystemId": "RK1",
+      "description": "SAP RK1 System (gateportal-cons)",
+      "portalSystem": "https://portal.gatecons.rwe.com/logon/ads",
+      "gatewaySystem": "http://rwemk2aa40.rwe.com/rwek/logon/ads"
+    },
+    {
+      "serverUrl": "https://logonpq7.gateqa.rwe.com/meldeapp/ProxyServ?servername=rwemq2aa40.rwe.com:44340&servicename=",
+      "sapSystem": "http://rwemq2aa40.rwe.com/sap/opu/odata/RWER/PMGW_MFM_MELDE_SRV/",
+      "sapSystemId": "RQ1",
+      "description": "SAP RQ1 System (gateportal-qa)",
+      "portalSystem": "https://portal.gateqa.rwe.com/logon/ads",
+      "gatewaySystem": "http://rwemq2aa40.rwe.com/rwek/logon/ads"
+    },
+    {
+      "serverUrl": "https://logonpp7.gate.rwe.com/meldeapp/ProxyServ?servername=rwemp2aa40.rwe.com:44340&servicename=",
+      "sapSystem": "http://rwemp2aa10.rwe.com/sap/opu/odata/RWER/PMGW_MFM_MELDE_SRV/",
+      "sapSystemId": "RP1",
+      "description": "",
+      "portalSystem": "https://portal.gate.rwe.com/logon/ads",
+      "gatewaySystem": "http://rwemp2aa10.rwe.com/rwek/logon/ads"
+    }
+  ],
+  "debugMode": false
+}

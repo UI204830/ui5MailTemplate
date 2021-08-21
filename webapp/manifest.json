@@ -1,0 +1,182 @@
+{
+  "_version": "1.12.0",
+  "sap.app": {
+    "id": "meldeappui5",
+    "type": "application",
+    "applicationVersion": {
+      "version": "1.0.0"
+    },
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "dataSources": {
+      "mainService": {
+        "uri": "./",
+        "type": "OData",
+        "settings": {
+          "odataVersion": "2.0",
+          "localUri": "localService/metadata.xml"
+        }
+      },
+      "loginService": {
+        "uri": "model/LoginModel.json",
+        "type": "JSON"
+      },
+      "appService": {
+        "uri": "model/AppModel.json",
+        "type": "JSON"
+      },
+      "buildingSetService": {
+        "uri": "model/BuildingSetModel.json",
+        "type": "JSON"
+      },
+      "notificationcreateService": {
+        "uri": "model/NotificationcreateModel.json",
+        "type": "JSON"
+      },
+      "textsearchService": {
+        "uri": "model/TextsearchModel.json",
+        "type": "JSON"
+      },
+      "dropdownService": {
+        "uri": "model/DropdownModel.json",
+        "type": "JSON"
+      },
+      "notificationDIRService": {
+        "uri": "model/NotificationDIRModel.json",
+        "type": "JSON"
+      },
+      "emailTemplateService": {
+        "uri": "model/EmailTemplateModel.json",
+        "type": "JSON"
+      }
+    }
+  },
+  "sap.ui": {
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": false,
+      "phone": false
+    },
+    "technology": "UI5"
+  },
+  "sap.ui5": {
+    "flexEnabled": false,
+    "rootView": {
+      "viewName": "meldeappui5.view.App",
+      "type": "XML",
+      "async": true,
+      "id": "app"
+    },
+    "dependencies": {
+      "libs": {
+        "sap.ui.layout": {},
+        "sap.ui.core": {},
+        "sap.m": {},
+        "sap.f": {}
+      },
+      "minUI5Version": "1.65.6"
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "meldeappui5.i18n.i18n",
+          "preload": true
+        }
+      },
+      "loginModel": {
+        "type": "sap.ui.model.json.JSONModel",
+        "dataSource": "loginService",
+        "preload": true
+      },
+      "appModel": {
+        "type": "sap.ui.model.json.JSONModel",
+        "dataSource": "appService",
+        "preload": true
+      },
+      "buildingSetModel": {
+        "type": "sap.ui.model.json.JSONModel",
+        "dataSource": "buildingSetService",
+        "preload": true
+      },
+      "dropdownModel": {
+        "type": "sap.ui.model.json.JSONModel",
+        "dataSource": "dropdownService",
+        "preload": true
+      },
+      "notificationcreateModel": {
+        "type": "sap.ui.model.json.JSONModel",
+        "dataSource": "notificationcreateService",
+        "preload": true
+      },
+      "textsearchModel": {
+        "type": "sap.ui.model.json.JSONModel",
+        "dataSource": "textsearchService",
+        "preload": true
+      },
+      "notificationDIRModel": {
+        "type": "sap.ui.model.json.JSONModel",
+        "dataSource": "notificationDIRService",
+        "preload": true
+      },
+      "emailTemplateModel": {
+        "type": "sap.ui.model.json.JSONModel",
+        "dataSource": "emailTemplateService",
+        "preload": true
+      },
+      "": {
+        "dataSource": "mainService"
+      }
+    },
+    "resources": {
+      "css": [
+        {
+          "uri": "css/style.css"
+        }
+      ]
+    },
+    "routing": {
+      "config": {
+        "routerClass": "sap.m.routing.Router",
+        "viewType": "XML",
+        "viewPath": "meldeappui5.view",
+        "controlId": "app",
+        "controlAggregation": "pages",
+        "transition": "slide",
+        "clearTarget": "false",
+        "async": true
+      },
+      "routes": [
+        {
+          "pattern": "CreateNotification",
+          "name": "CreateNotification",
+          "target": "CreateNotification"
+        },
+        {
+          "pattern": "CreateNotification",
+          "name": "CreateNotification",
+          "target": "CreateNotification"
+        },
+        {
+          "pattern": "",
+          "name": "EmailTemplate",
+          "target": "EmailTemplate"
+        }
+      ],
+      "targets": {
+        "CreateNotification": {
+          "viewName": "CreateNotification",
+          "viewLevel": 1
+        },
+        "EmailTemplate": {
+          "viewName": "EmailTemplate",
+          "viewLevel": 1
+        }
+      }
+    }
+  }
+}

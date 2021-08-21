@@ -1,0 +1,100 @@
+<mvc:View
+        controllerName="meldeappui5.controller.EmailTemplate"
+        xmlns:mvc="sap.ui.core.mvc"
+        xmlns="sap.m"
+        xmlns:core="sap.ui.core"
+        xmlns:f="sap.ui.layout.form"
+        xmlns:html="http://www.w3.org/1999/xhtml"
+        displayBlock="true">
+    <Page id="emailTemplatePage" title="Meldung erfassen" titleAlignment="Center">
+        <content>
+            <VBox>
+                <HBox class="sapUiSmallMarginBegin sapUiSmallMarginTop">
+                    <Label wrapping="true"
+                           text="Haben Sie ein Anliegen zu Leistungen im Gebäude? Bitte füllen Sie für eine automatisierte Erfassung die folgenden Zeilen aus."/>
+                </HBox>
+
+                <html:form action="/meldeappui5/emailTemplate" method="post" name="emailForm" target="_blank">
+                    <Input id="idFirstname" name="firstname" value="{/firstname}" visible="false"/>
+                    <Input id="idLastname" name="lastname" value="{/lastname}" visible="false"/>
+                    <Input id="idEmail" name="email" value="{/email}" visible="false"/>
+                    <Input id="idTelephone" name="telephone" value="{/telephone}" visible="false"/>
+                    <Input id="idCategory" name="category" value="{/category}" visible="false"/>
+                    <Input id="idBuildingName" name="buildingName" value="{/buildingName}" visible="false"/>
+                    <Input id="idStreet" name="street" value="{/street}" visible="false"/>
+                    <Input id="idHouseNumber" name="houseNumber" value="{/houseNumber}" visible="false"/>
+                    <Input id="idPostalCode" name="postalCode" value="{/postalCode}" visible="false"/>
+                    <Input id="idCity" name="city" value="{/city}" visible="false"/>
+                    <Input id="idFuncLocationId" name="funcLocationId" value="{/funcLocationId}" visible="false"/>
+                    <Input id="idFloor" name="floor" value="{/floor}" visible="false"/>
+                    <Input id="idRoom" name="room" value="{/room}" visible="false"/>
+                    <Input id="idShortText" name="shortText" value="{/shortText}" visible="false"/>
+                    <Input id="idLongText" name="longText" value="{/longText}" visible="false"/>
+                </html:form>
+
+
+                <f:SimpleForm id="idSfEmailTemplate"
+                              editable="true"
+                              layout="ResponsiveGridLayout"
+                              class="sapUiSmallMarginTop">
+                    <f:content>
+                        <Label text="Vorname"/>
+                        <Input name="firstname" value="{/firstname}" required="true"/>
+
+                        <Label text="Name"/>
+                        <Input name="lastname" value="{/lastname}" required="true"/>
+
+                        <Label text="E-Mail"/>
+                        <Input name="email" value="{/email}" required="true"/>
+
+                        <Label text="Telefon"/>
+                        <Input name="phone" value="{/phone}"/>
+                    </f:content>
+                </f:SimpleForm>
+
+
+                <f:SimpleForm id="idSfEmailTemplate2"
+                              editable="true"
+                              layout="GridLayout"
+                              class="sapUiSmallMarginTop">
+                    <f:content>
+                        <Label text="Ort" design="Bold"/>
+                        <Text text="{/city}"/>
+
+                        <Label text="PLZ" design="Bold"/>
+                        <Text text="{/postalCode}"/>
+
+                        <Label text="Gebäude" design="Bold"/>
+                        <Text text="{/buildingName}"/>
+
+                        <Label text="Strasse" design="Bold"/>
+                        <Text text="{/street} {/houseNumber}"/>
+
+                        <Label text="Etage" design="Bold" visible="{= !!${/floor}}"/>
+                        <Text text="{/floor}" visible="{= !!${/floor}}"/>
+
+                        <Label text="Raum/Raumnummer" design="Bold"/>
+                        <Text text="{/room}"/>
+
+                        <Label text="Technischer Platz" design="Bold"/>
+                        <Text text="{/funcLocationId}"/>
+
+                        <Label text="Mein Anliegen" design="Bold"/>
+                        <Input name="shortText" value="{/shortText}"/>
+
+                        <Label text="Beschreibung" design="Bold"/>
+                        <Input name="longText" value="{/longText}"/>
+                    </f:content>
+                </f:SimpleForm>
+            </VBox>
+        </content>
+
+        <footer>
+            <Toolbar>
+                <ToolbarSpacer/>
+                <Button text="Meldung Erfassen"/>
+            </Toolbar>
+        </footer>
+    </Page>
+
+</mvc:View>

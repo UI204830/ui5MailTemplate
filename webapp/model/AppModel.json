@@ -1,0 +1,77 @@
+{
+    "robotics": false,
+    "username": "",
+    "cookie": "",
+    "sapSystem": "",
+   	"serverUrl": "https://logonpc7.gatecons.rwe.com/meldeapp/ProxyServ?servername=rwemk2aa40.rwe.com:44340",
+   	"serverUrlMK2": "https://logonpd7.gatedev.rwe.com/meldeapp/ProxyServ?servername=rwemk2aa40.rwe.com:44340",
+    "serverUrlMQ2": "https://logonpq7.gateqa.rwe.com/meldeapp/ProxyServ?servername=rwemq2aa40.rwe.com:44340",
+    "serverUrlMP2": "https://logonpp7.gate.rwe.com/meldeapp/ProxyServ?servername=rwemp2aa10.rwe.com:44340",
+    "pp7Url": "https://logonpp7.gate.rwe.com/meldeapp/UserJson",
+    "pq7Url": "https://logonpq7.gateqa.rwe.com/meldeapp/UserJson",
+    "pc7Url": "https://logonpc7.gatecons.rwe.com/meldeapp/UserJson",
+    "pd7Url": "https://logonpd7.gatedev.rwe.com/meldeapp/UserJson",
+    "portalSystem": "",
+    "gatewaySystem": "",
+    "backendSystemId": "",
+    "userFullName": "",
+    "fontSize": 16,
+    "selectedVariant": "",
+    "selectedPlant": "",
+    "selectedDomain": "",
+    "selectBuildingEnabled": false,
+    "domain": [
+        {
+            "key": "group",
+            "value": "GROUP"
+        },
+        {
+            "key": "energy",
+            "value": "ENERGY"
+        }
+    ],
+    "urls": {
+        "gingcoUrl": "http://raumbuchungssystem.rwe.com/",
+        "bueroUrl": "https://teamwork.rwe.com/de-de/team-info/services/im-buero/bueroservices/",
+        "schlossUrl": "https://teamwork.rwe.com/de-de/team-info/services/administration/veranstaltungen-schloss-paffendorf/",
+        "listeUrl": "https://teamwork.rwe.com/-/media/files/team-info/services/im-buero/gebaeude-management/aggregierte-gebudeliste-phi---intranet.xlsx",
+        "bedarfUrl": "https://teamwork.rwe.com/-/media/files/team-info/services/im-buero/gebaeude-management/bedarfsanfrage-v2.xltm"
+    },
+    "downloadStatus": {
+        "percentage": 0,
+        "valueState": "Information",
+        "messages": []
+    },
+    "notification": {
+        "title": "",
+        "canvasEditorImgSrc": "",
+        "priority": []
+    },
+    "valueHelper": {
+        "priority": [],
+        "plants": [],
+        "variants": []
+    },
+    "originPage": "",
+    "languages": [
+        {
+            "key": "de",
+            "description": "Deutsch"
+        },
+        {
+            "key": "en",
+            "description": "English"
+        },
+        {
+            "key": "nl",
+            "description": "Nederlands"
+        }
+    ],
+    "selectedLanguage": "de",
+    "variants": [],
+    "iconColor": "#14B496",
+    "iconSource": "sap-icon://message-success",
+    "iconVisible": false,
+    "isCatalogueActive": false,
+    "lastSyncTimestamp": null
+}

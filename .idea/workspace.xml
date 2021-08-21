@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="669afe59-bfc6-456b-8ed2-86af1bad91ca" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/webapp/model/EmailTemplateModel.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webapp/controller/EmailTemplate.controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/webapp/controller/EmailTemplate.controller.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webapp/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/webapp/manifest.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webapp/view/EmailTemplate.view.xml" beforeDir="false" afterPath="$PROJECT_DIR$/webapp/view/EmailTemplate.view.xml" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="HTML File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <excluded-from-favorite>
+      <branch-storage>
+        <map>
+          <entry type="LOCAL">
+            <value>
+              <list>
+                <branch-info repo="$PROJECT_DIR$" source="master" />
+              </list>
+            </value>
+          </entry>
+        </map>
+      </branch-storage>
+    </excluded-from-favorite>
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="feature/qrCodeEmailTemplate" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="ROOT_SYNC" value="DONT_SYNC" />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/webapp/view/CreateNotification.view.xml" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/webapp/controller/CreateNotification.controller.js" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/webapp/index.html" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/webapp/emailTemplate.html" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/webapp/manifest.json" root0="FORCE_HIGHLIGHTING" />
+  </component>
+  <component name="ProjectId" id="1tfCvP8xscUonRY2YY7CjZ0cUtU" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="flattenModules" value="true" />
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/webapp/model" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="project.structure.last.edited" value="SDKs" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="http.proxy" />
+    <property name="ts.external.directory.path" value="C:\Users\ui204830\programs\ideaIU-2019.3.3.win\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
+    <property name="vue.rearranger.settings.migration" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Workspace\app.meldeapp.ui5web\webapp\model" />
+      <recent name="C:\Workspace\app.meldeapp.ui5web\webapp\controller" />
+      <recent name="C:\Workspace\app.meldeapp.ui5web\webapp\view" />
+      <recent name="C:\Workspace\app.meldeapp.ui5web\webapp\util" />
+      <recent name="C:\Workspace\app.meldeapp.ui5web" />
+    </key>
+  </component>
+  <component name="RunManager" selected="npm.build:ui5:debug">
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="build:WebContent" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="build:WebContent" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <configuration name="build:ui5:debug" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="build:ui5:debug" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <configuration name="build:ui5:exclude:debug" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="build:ui5:exclude:debug" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <configuration name="start:meldeapp" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="start:meldeapp" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <configuration name="test" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="test" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="npm.start:meldeapp" />
+        <item itemvalue="npm.build:ui5:debug" />
+        <item itemvalue="npm.build:WebContent" />
+        <item itemvalue="npm.build:ui5:exclude:debug" />
+        <item itemvalue="npm.test" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="SvnConfiguration">
+    <configuration>C:\Users\ui204830\AppData\Roaming\Subversion</configuration>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="669afe59-bfc6-456b-8ed2-86af1bad91ca" name="Default Changelist" comment="" />
+      <created>1623150986832</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1623150986832</updated>
+      <workItem from="1623150988175" duration="21072000" />
+      <workItem from="1623233954320" duration="11901000" />
+      <workItem from="1623311980301" duration="3637000" />
+      <workItem from="1623315720866" duration="2513000" />
+      <workItem from="1623414841830" duration="2228000" />
+      <workItem from="1624271340160" duration="18017000" />
+      <workItem from="1624292606237" duration="40433000" />
+      <workItem from="1624453347843" duration="11000" />
+      <workItem from="1624455838069" duration="16108000" />
+      <workItem from="1624527132183" duration="25359000" />
+      <workItem from="1624704152576" duration="597000" />
+      <workItem from="1624741676820" duration="460000" />
+      <workItem from="1624754595579" duration="76752000" />
+      <workItem from="1625130128049" duration="76067000" />
+      <workItem from="1625313866840" duration="11111000" />
+      <workItem from="1625401269318" duration="43267000" />
+      <workItem from="1625477837330" duration="7092000" />
+      <workItem from="1626096207694" duration="597000" />
+      <workItem from="1626099110277" duration="957000" />
+      <workItem from="1626238019533" duration="14979000" />
+      <workItem from="1629099694695" duration="2289000" />
+      <workItem from="1629256752411" duration="765000" />
+      <workItem from="1629461048984" duration="9756000" />
+    </task>
+    <task id="LOCAL-00001" summary="initial commit">
+      <created>1623317442315</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1623317442315</updated>
+    </task>
+    <task id="LOCAL-00002" summary="added dist to .gitignore">
+      <created>1623318231294</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1623318231294</updated>
+    </task>
+    <task id="LOCAL-00003" summary="added dist to .gitignore">
+      <created>1623319557090</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1623319557090</updated>
+    </task>
+    <task id="LOCAL-00004" summary="added dist to .gitignore">
+      <created>1623319826996</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1623319826996</updated>
+    </task>
+    <task id="LOCAL-00005" summary="added dist to .gitignore">
+      <created>1623319999372</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1623319999372</updated>
+    </task>
+    <task id="LOCAL-00006" summary="bugfixes and cleanup code">
+      <created>1624413360674</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1624413360674</updated>
+    </task>
+    <task id="LOCAL-00007" summary="fixed buildingSet model size limit&#10;made app visible in safari browser over Web@Work&#10;set responsive layout for different device sizes&#10;cleanup code">
+      <created>1625042551695</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1625042551695</updated>
+    </task>
+    <task id="LOCAL-00008" summary="fixed buildingSet model size limit&#10;made app visible in safari browser over Web@Work&#10;set responsive layout for different device sizes&#10;cleanup code">
+      <created>1625043581138</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1625043581138</updated>
+    </task>
+    <task id="LOCAL-00009" summary="fixed buildingSet model size limit&#10;made app visible in safari browser over Web@Work&#10;set responsive layout for different device sizes&#10;cleanup code">
+      <created>1625045547113</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1625045547113</updated>
+    </task>
+    <task id="LOCAL-00010" summary="fixed buildingSet model size limit&#10;made app visible in safari browser over Web@Work&#10;set responsive layout for different device sizes&#10;cleanup code">
+      <created>1625045961185</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1625045961185</updated>
+    </task>
+    <task id="LOCAL-00011" summary="fixed buildingSet model size limit&#10;made app visible in safari browser over Web@Work&#10;set responsive layout for different device sizes&#10;cleanup code">
+      <created>1625276845115</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1625276845115</updated>
+    </task>
+    <task id="LOCAL-00012" summary="fixed image upload on mobile device,&#10;set upload amount to max. 3,">
+      <created>1625470241650</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1625470241650</updated>
+    </task>
+    <task id="LOCAL-00013" summary="fixed robotics parameter request">
+      <created>1625561012440</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1625561012440</updated>
+    </task>
+    <task id="LOCAL-00014" summary="fixed robotics parameter request">
+      <created>1629462163913</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1629462163913</updated>
+    </task>
+    <task id="LOCAL-00015" summary="fixed robotics parameter request">
+      <created>1629466534660</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1629466534660</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="feature/qrCodeEmailTemplate" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
+    <option name="CHECK_NEW_TODO" value="false" />
+    <MESSAGE value="initial commit" />
+    <MESSAGE value="added dist to .gitignore" />
+    <MESSAGE value="bugfixes and cleanup code" />
+    <MESSAGE value="fixed buildingSet model size limit&#10;made app visible in safari browser over Web@Work&#10;set responsive layout for different device sizes&#10;cleanup code" />
+    <MESSAGE value="fixed image upload on mobile device,&#10;set upload amount to max. 3," />
+    <MESSAGE value="fixed robotics parameter request" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixed robotics parameter request" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+</project>

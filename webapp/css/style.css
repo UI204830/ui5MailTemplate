@@ -1,0 +1,18 @@
+
+.sapMPageBgStandard {
+    background-color: #fff;
+}
+
+.mfmTitleClass {
+    vertical-align: middle;
+    font-size: .875rem;
+    font-weight: bolder !important;
+}
+
+.hintMissingBuildingsClass {
+    color: #0563c1;
+}
+
+.sapMUSProgressBox {
+    /*visibility: hidden;*/
+}

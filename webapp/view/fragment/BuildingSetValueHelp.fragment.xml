@@ -1,0 +1,49 @@
+<core:FragmentDefinition
+        xmlns="sap.m"
+        xmlns:core="sap.ui.core">
+    <TableSelectDialog
+            id="idTableSelectBuildings"
+            resizable="true"
+            draggable="true"
+            title="Gebäude suchen"
+            liveChange="onLiveBuildingChangeInput"
+            search="onLiveBuildingChangeInput"
+            confirm="onSuggestionItemSelected"
+            cancel="onValueHelpDialogClose"
+            showClearButton="false"
+            items="{
+			path: 'dropdownModel>/buildingset',
+			sorter: {
+				path: 'buldingName',
+				descending: false
+			}
+		}">
+
+        <ColumnListItem selected="{selected}">
+            <cells>
+                <ObjectIdentifier title="{dropdownModel>buldingName}"
+                                  text="{dropdownModel>street} {dropdownModel>houseNumber} {dropdownModel>postalCode} {dropdownModel>city}"/>
+                <Label id="vHselectedBuildingKey"
+                       text="{dropdownModel>funcLocationId}"
+                       visible="true"/>
+                <Label id="vHSelectedBuildingGebis" text="{dropdownModel>gebisNumber}"/>
+
+                <Label id="vHselectedBuildingName"
+                       text="{dropdownModel>buldingName}"
+                       visible="false"/>
+            </cells>
+        </ColumnListItem>
+
+        <columns>
+            <Column popinDisplay="Inline" demandPopin="true">
+                <Label text="Gebäude"/>
+            </Column>
+            <Column minScreenWidth="Tablet" hAlign="Center" popinDisplay="Inline" demandPopin="true">
+                <Label text="TP"/>
+            </Column>
+            <Column hAlign="Center" popinDisplay="Inline" demandPopin="true" width="20%">
+                <Label text="Gebis Nr."/>
+            </Column>
+        </columns>
+    </TableSelectDialog>
+</core:FragmentDefinition>

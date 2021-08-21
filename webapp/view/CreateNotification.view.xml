@@ -1,0 +1,294 @@
+<mvc:View xmlns:mvc="sap.ui.core.mvc"
+          xmlns="sap.m"
+          xmlns:upload="sap.m.upload"
+          xmlns:f="sap.f"
+          xmlns:core="sap.ui.core"
+          xmlns:l="sap.ui.layout"
+          xmlns:form="sap.ui.layout.form"
+          controllerName="meldeappui5.controller.CreateNotification"
+          displayBlock="true">
+    <f:DynamicPage id="requestPage" showFooter="true">
+        <f:content>
+            <l:VerticalLayout class="sapUiSmallMargin sapUiLargeMarginEnd" width="100%">
+
+                <l:Grid containerQuery="true"
+                        defaultSpan="XL11 L11 M11 S11">
+                    <HBox width="98%">
+                        <Image src="./icons/Meldeapp_Icon.png" id="image2"
+                               class="sapUiSmallMarginEnd"/>
+                        <l:VerticalLayout>
+                            <Title id="mfmTitle"
+                                   level="H6"
+                                   titleStyle="H6"
+                                   text="{i18n>txt.headline.mfm}"/>
+                            <Text text="{i18n>txt.header.part1}"
+                                  class="sapUiTinyMarginTop sapUiSmallMarginEnd"/>
+                        </l:VerticalLayout>
+                    </HBox>
+
+                    <HBox>
+                        <Text id="hintMissingBuildingsText"
+                              text="{i18n>txt.hint.missing.buildings}"
+                              class="sapUiTinyMarginTop sapUiSmallMarginEnd"/>
+                    </HBox>
+
+
+                    <VBox class="sapUiSmallMarginEnd" width="98%">
+                        <l:VerticalLayout>
+                            <Text wrapping="true"
+                                  class="sapUiTinyMarginTop sapUiMediumMarginEnd"
+                                  text="{i18n>txt.header.part2}"/>
+                            <Text text="{i18n>txt.header.part3}" class="sapUiTinyMarginTop sapUiSmallMarginEnd"/>
+                        </l:VerticalLayout>
+                    </VBox>
+                </l:Grid>
+
+
+                <l:VerticalLayout id="containerLayout" width="100%">
+                    <l:BlockLayout id="BlockLayout" background="Dashboard">
+                        <l:BlockLayoutRow>
+                            <l:BlockLayoutCell>
+                                <Toolbar>
+                                    <core:Icon src="sap-icon://business-card" class="sapUiSmallMarginEnd"/>
+                                    <Title text="Kontaktdaten"/>
+                                </Toolbar>
+                                <form:SimpleForm editable="true"
+                                                 columnsM="1"
+                                                 columnsL="1"
+                                                 columnsXL="1"
+                                                 backgroundDesign="Transparent"
+                                                 layout="ColumnLayout">
+                                    <Label text="Vorname"/>
+                                    <Input value="{loginModel>/firstname}" editable="{appModel>/robotics}"/>
+                                    <Label text="Name"/>
+                                    <Input value="{loginModel>/lastname}" editable="{appModel>/robotics}"/>
+                                    <Label text="E-Mail"/>
+                                    <Input value="{loginModel>/email}" editable="{appModel>/robotics}"/>
+                                    <Label text="Telefon"/>
+                                    <Input value="{loginModel>/telephone}" type="Number"/>
+                                </form:SimpleForm>
+                            </l:BlockLayoutCell>
+
+                            <l:BlockLayoutCell width="2">
+                                <Toolbar>
+                                    <core:Icon src="sap-icon://message-warning" class="sapUiSmallMarginEnd"/>
+                                    <Title text="Wichtiger Hinweis"/>
+                                </Toolbar>
+                                <HBox class="sapUiSmallMargin">
+                                    <core:HTML
+                                            content='&lt;div class=&quot;content&quot;&gt;&lt;div&gt;{i18n>txt.hint.content.header}&lt;ul&gt;
+                                                        &lt;li class="sapUiSmallMarginBottom sapUiSmallMarginEnd"&gt;{i18n>ul.content1} &lt;a target=&quot;_blank&quot; href=&quot;https://itportal.rwe.com/sp&quot;&gt;Web_Link.&lt;/a&gt; &lt;/li&gt;
+                                                        &lt;li class="sapUiSmallMarginBottom sapUiSmallMarginEnd"&gt;{i18n>ul.content2}&lt;/li&gt;
+                                                        &lt;li class="sapUiSmallMarginEnd"&gt;{i18n>ul.content3} &lt;a target=&quot;_blank&quot; href=&quot;https://raumbuchungssystem.rwe.com/&quot;&gt;Raumbuchungssystem Gingco. &lt;/a&gt;&lt;/li&gt; &lt;/ul&gt; &lt;/div&gt;&lt;/div&gt;&lt;/div&gt;'/>
+                                </HBox>
+
+                            </l:BlockLayoutCell>
+                        </l:BlockLayoutRow>
+                    </l:BlockLayout>
+                </l:VerticalLayout>
+
+
+                <l:Grid>
+                    <VBox direction="Column">
+                        <Label width="100%" text="Kategorie:" class="sapUiSmallMarginTop"/>
+                        <Select width="100%" id="selectCategory"
+                                change="onSelectCategory"
+                                items="{dropdownModel>/categoryset}"
+                                tooltip="Kategorie">
+                            <core:Item key="{dropdownModel>category}" text="{dropdownModel>description}"/>
+                        </Select>
+                        <layoutData>
+                            <l:GridData span="XL3 L3 M12 S12"/>
+                        </layoutData>
+                    </VBox>
+                    <VBox direction="Column">
+                        <items>
+                            <Label text="Straße / PLZ / Ort / Volltextsuche:"
+                                   required="true"
+                                   class="sapUiSmallMarginTop"/>
+                            <Input id="fullsearchInput"
+                                   placeholder="Gebäude suchen und auswählen"
+                                   showSuggestion="true"
+                                   liveChange="onLiveBuildingChangeInput"
+                                   valueLiveUpdate="true"
+                                   tooltip="Straße, PLZ, Ort oder Volltextsuche"
+                                   showTableSuggestionValueHelp="false"
+                                   suggestionRows="{buildingSetModel>/}"
+                                   autocomplete="false"
+                                   suggestionItemSelected="onSuggestionItemSelected"
+                                   showValueHelp="true"
+                                   valueHelpOnly="true"
+                                   valueHelpRequest="onValueHelpRequest">
+                                <suggestionColumns>
+                                    <Column popinDisplay="Inline" demandPopin="true">
+                                        <Label text="Gebäude"/>
+                                    </Column>
+                                    <Column hAlign="Center" popinDisplay="Inline" demandPopin="true" width="20%">
+                                        <Label text="Gebis Nr."/>
+                                    </Column>
+                                </suggestionColumns>
+                                <suggestionRows>
+                                    <ColumnListItem>
+                                        <cells>
+                                            <ObjectIdentifier title="{buildingSetModel>buldingName}"
+                                                              text="{buildingSetModel>street} {buildingSetModel>houseNumber} {buildingSetModel>postalCode} {buildingSetModel>city}"/>
+                                            <Label id="selectedBuildingGebis" text="{buildingSetModel>gebisNumber}"/>
+                                            <Label id="selectedBuildingKey"
+                                                   text="{buildingSetModel>funcLocationId}"
+                                                   visible="false"/>
+                                            <Label id="selectedBuildingName"
+                                                   text="{buildingSetModel>buldingName}"
+                                                   visible="false"/>
+                                        </cells>
+                                    </ColumnListItem>
+                                </suggestionRows>
+                            </Input>
+                        </items>
+                        <layoutData>
+                            <l:GridData span="XL4 L4 M12 S12"/>
+                        </layoutData>
+                    </VBox>
+                </l:Grid>
+                <l:Grid>
+                    <VBox direction="Column">
+                        <layoutData>
+                            <f:GridContainerItemLayoutData columns="2"/>
+                        </layoutData>
+                        <items>
+                            <Label width="100%" text="Etage:"
+                                   class="sapUiSmallMarginTop"/>
+                            <Input liveChange="onLiveChangeInput"
+                                   value="{notificationcreateModel>/floor}"
+                                   width="100%" id="inputFloor"
+                                   tooltip="Bitte geben Sie hier die betreffende Etage an."/>
+                        </items>
+                        <layoutData>
+                            <l:GridData span="XL3 L3 M6 S6"/>
+                        </layoutData>
+                    </VBox>
+                    <VBox direction="Column">
+                        <layoutData>
+                            <f:GridContainerItemLayoutData columns="2"/>
+                        </layoutData>
+                        <items>
+                            <Label width="100%"
+                                   text="Raum/Raumnummer:"
+                                   class="sapUiSmallMarginTop"/>
+                            <Input width="100%"
+                                   value="{notificationcreateModel>/room}"
+                                   liveChange="onLiveChangeInput"
+                                   tooltip="Bitte geben Sie hier - falls möglich - eine genaue Örtlichkeit an."/>
+                        </items>
+                        <layoutData>
+                            <l:GridData span="XL4 L4 M6 S6"/>
+                        </layoutData>
+                    </VBox>
+                </l:Grid>
+                <l:Grid>
+                    <VBox direction="Column">
+                        <items>
+                            <Label text="Mein Anliegen: ({= ${notificationcreateModel>/shortText}.length}/40)"
+                                   required="true"
+                                   class="sapUiSmallMarginTop"/>
+                            <Input value="{notificationcreateModel>/shortText}"
+                                   required="true"
+                                   maxLength="40"
+                                   width="100%"
+                                   tooltip="Bitte geben Sie hier kurz Ihr konkretes Anliegen an."
+                                   id="idInputShortText"
+                                   valueLiveUpdate="true"
+                                   liveChange="onLiveChangeShortText"/>
+                        </items>
+                        <layoutData>
+                            <l:GridData span="XL11 L10 M12 S12"/>
+                        </layoutData>
+                    </VBox>
+                    <VBox direction="Column">
+                        <items>
+                            <Label text="Beschreibung:"
+                                   class="sapUiSmallMarginTop"/>
+                            <TextArea value="{notificationcreateModel>/longText}" rows="5" showExceededText="true"
+                                      maxLength="1000"
+                                      width="100%"
+                                      tooltip="Beschreibungstext"
+                                      liveChange="handleLongTextLiveChange"
+                                      id="textAreaLongText"
+                                      valueLiveUpdate="true"/>
+                        </items>
+                        <layoutData>
+                            <l:GridData span="XL11 L10 M12 S12"/>
+                        </layoutData>
+                    </VBox>
+                </l:Grid>
+                <l:Grid>
+                    <l:dependents>
+                        <core:Fragment fragmentName="meldeappui5.view.fragment.BusyDialog" type="XML"/>
+                    </l:dependents>
+                    <VBox direction="Column">
+                        <items>
+                            <upload:UploadSet
+                                    id="UploadSet"
+                                    instantUpload="false"
+                                    uploadEnabled="true"
+                                    terminationEnabled="false"
+                                    maxFileNameLength="55"
+                                    noDataText="Foto hinzufügen ( Max. 3)"
+                                    noDataDescription="Dateien für Upload hierher ziehen oder Drucktaste &quot;+&quot; verwenden."
+                                    beforeUploadStarts="onBeforeUploadStarts"
+                                    uploadCompleted="onUploadCompleted"
+                                    beforeItemAdded="onBeforeItemAdded"
+                                    afterItemAdded="onAfterItemAdded"
+                                    afterItemRemoved="onAfterItemRemoved"
+                                    afterItemEdited="onAfterItemEdited"
+                                    uploadUrl="../../../../upload"
+                                    items="{path: 'notificationDIRModel>/images', templateShareable: false}">
+                                <upload:items>
+                                    <upload:UploadSetItem
+                                            fileName="{notificationDIRModel>fileName}"
+                                            mediaType="{notificationDIRModel>type}"
+                                            enabledEdit="true"
+                                            visibleEdit="true"
+                                            removePressed="onFileDeleted">
+                                        <upload:attributes>
+                                            <ObjectAttribute title="Dateigröße"
+                                                             text="{path: 'notificationDIRModel>size',
+                                                                    formatter: '.formatter.formatAttribute'}"
+                                                             active="false"/>
+                                        </upload:attributes>
+                                    </upload:UploadSetItem>
+                                </upload:items>
+                            </upload:UploadSet>
+
+
+                            <CheckBox selected="{notificationcreateModel>/subscribe}"
+                                      text="Ich möchte über den weiteren Verlauf per Mail informiert werden">
+                                <layoutData>
+                                    <l:GridData span="XL11 L10 M10 S12"/>
+                                </layoutData>
+                            </CheckBox>
+                        </items>
+                        <layoutData>
+                            <l:GridData span="XL11 L10 M10 S12"/>
+                        </layoutData>
+                    </VBox>
+                    <VBox direction="Column">
+                        <layoutData>
+                            <l:GridData span="XL11 L10 M10 S12"/>
+                        </layoutData>
+                    </VBox>
+                </l:Grid>
+            </l:VerticalLayout>
+        </f:content>
+        <f:footer>
+            <OverflowToolbar class="sapUiLargeMarginBeginEnd">
+                <ToolbarSpacer/>
+                <Button text="Meldung erstellen"
+                        press="onCreateNotification"
+                        type="Emphasized"/>
+                <Button text="Email Vorlage"
+                        press="onNavToEmailTemplate"
+                        visible="true"/>
+            </OverflowToolbar>
+        </f:footer>
+    </f:DynamicPage>
+</mvc:View>
